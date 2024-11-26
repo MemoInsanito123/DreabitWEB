@@ -1,8 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const db = require('./db.js');
-const authRoutes = require('./auth.js');
+const db = require('./db/db.js');
+//const authRoutes = require('./auth.js');
 
 const app = express();
 const PORT = 3000;
@@ -19,7 +19,7 @@ app.use(session({
 }));
 
 // Rutas de autenticación
-app.use('/auth', authRoutes);
+//app.use('/auth', authRoutes);
 
 // Servir archivos estáticos
 app.use(express.static('public'));
