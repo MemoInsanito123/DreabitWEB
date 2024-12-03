@@ -29,6 +29,7 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
         if(data.status){
             switch(data.role){
                 case 1 :
+                    localStorage.setItem('user', JSON_LOGIN.email);
                     window.location.href = '/html/client.html';
                     break;
                 case 2:
@@ -48,3 +49,12 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
     });
 
 });
+
+//Funcion para verificar si hay una sesion activa
+const verifySession = () => {
+    if(localStorage.getItem('user')){
+        window.location.href = '/client.html'
+    }
+};
+
+verifySession();

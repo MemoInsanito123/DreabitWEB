@@ -20,8 +20,6 @@ router.post('/login', (req, res) => {
         if(results.length > 0){
             //Guardamos ese registro completo
             const user = results[0];
-            
-            console.log(user)
             //Retornamos un Json indicando el tipo de usuario y si el status fue true
             return res.json({
                 status : true,
