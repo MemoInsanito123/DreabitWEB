@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../db/db');
 
 
+//Verificar si hay un usuario con las credenciales que se le mandan en la request, si existe uno retornar su tipo de usuario
 router.post('/login', (req, res) => {
     //Desestrutura el JSON que se manda el la Request(Solicitud)
     const {email, password} = req.body;
@@ -30,6 +31,7 @@ router.post('/login', (req, res) => {
     });
 });
 
+//Registrar un nuevo usruario en la Base de Datos ///PENDIENTE CON JUAREZ
 router.post('/signup', (req, res) => {
 
     const {type, email, password} = req.body;
@@ -41,6 +43,17 @@ router.post('/signup', (req, res) => {
         }
         return res.status(200).send('Usuario Resgitrado con exito');
     });
+});
+
+//Metodo para obtener el id del usuario mediante el correo electronico
+router.post('/getID', (req, res) => {
+
+    const {email} = req.body;
+    const query = 'SELECT User_Dreabit.id_user FROM User_Dreabit WHERE email_user = ?';
+    
+    db.execute(query, [email], (err, results) => {
+
+    })
 });
 
 module.exports = router;

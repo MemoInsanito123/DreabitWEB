@@ -1,8 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db/db.js');
-const sessionsRoutes = require('./routes/sessions.js');
-const path = require('path')
+
+const sessionsRoutes = require('./methods/User_Dreabit.js');
+const waysRoutes = require('./methods/Way.js');
+
+const path = require('path');
+
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +22,7 @@ app.get('/', (req,res) => {
 
 // Rutas de autenticación
 app.use('/sessions', sessionsRoutes);
+app.use('/ways', waysRoutes);
 
 // Servir archivos estáticos html
 app.use(express.static('public'));
