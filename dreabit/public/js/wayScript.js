@@ -43,6 +43,8 @@ const fetchWaysGET = () => {
 
 //Funcion para ejecutar la llamada al fetch de POST
 const fetchWaysPOST = () => {
+    
+ 
 
     fetch('/ways/post', {
         method : 'POST',

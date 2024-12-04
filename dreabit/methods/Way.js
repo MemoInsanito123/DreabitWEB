@@ -30,4 +30,8 @@ router.post('/post', (req, res) => {
 
 });
 
+router.get('/getID', (req, res) => {
+    
+});
+
 module.exports = router;

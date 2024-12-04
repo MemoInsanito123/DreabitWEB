@@ -3,41 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/icon.png">
+    <link rel="icon" href="../img/icon.png">
     <title>Dreabit - Registrarse</title>
-    <link rel="stylesheet" href="styles/sesion.css">
+    <link rel="stylesheet" href="../styles/sesion.css">
 </head>
-<body>
+<body> 
     <div class="container">
-        <a href="index.html"><img src="img/regresar.png" class="icon"></a>
-
+        <a href="index.html"><img src="../img/regresar.png" class="icon"></a>
         <div class="formulario">
-            <img src="img/icon.png" alt="Logo de Dreabit" class="img_rana">
-
+            <img src="../img/icon.png" alt="Logo de Dreabit" class="img_rana">
             <h2>REGISTRARSE</h2>
-                <form action="">
-                    <div class="inputRegistro">
-                        <div class="inputColumna">
-                        <input type="text" placeholder="Nombre" required class="inputs">
-                        <input type="text" placeholder="Email" required class="inputs">
-                        <input type="password" placeholder="Contraseña" required class="inputs">
-                    </div>
-                    <div class="inputColumna">
-                        <input type="text" placeholder="Nombre de Usuario" required class="inputs">
-                        <input type="text" placeholder="Fecha de nacimiento" required class="inputs">
-                        <input type="password" placeholder="Confirmar Contraseña" required class="inputs">
-                        </div>
-                    </div>
-                    
-                    <div class="linea-texto">
-                        o regístrate con
-                    </div>
-                    
-                    <img src="img/google.png" alt="Google" class="btn_google">
-                    
-                    <button type="submit" class="btn_aceptar">Aceptar</button>
-                </form>
+
+            <form class="name active">
+                <div class="apartado">
+                    <input type="text" placeholder="Nombre" required class="inputs">
+                    <input type="text" placeholder="Apellido Materno" class="inputs">
+                    <input type="text" placeholder="Apellido Paterno" class="inputs">
+                </div>
+                <input type="text" placeholder="Apodo" required class="inputs">
+                <div class="linea-texto">o regístrate con</div>
+                <img src="../img/google.png" alt="Google" class="btn_google">
+                <button type="button" class="btn_aceptar siguiente" data-next="user">Siguiente</button>
+            </form>
+
+            <form class="user">
+                <input type="text" placeholder="Email" required class="inputs">
+                <div class="apartado">
+                    <p>Fecha de Nacimiento:</p>
+                    <select id="anio" class="inputsnac" required>
+                        <option value="" disabled selected>Año</option>
+                    </select>
+                    <select id="mes" class="inputsnac" required>
+                        <option value="" disabled selected>Mes</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <select id="dia" class="inputsnac" required>
+                        <option value="" disabled selected>Día</option>
+                    </select>
+                </div>
+                <button type="button" class="btn_aceptar siguiente" data-next="password">Siguiente</button>
+            </form>
+
+            <form class="password">
+                <input type="password" placeholder="Contraseña" required class="inputs">
+                <input type="password" placeholder="Confirmar Contraseña" required class="inputs">
+                <button type="submit" class="btn_aceptar">Finalizar</button>
+            </form>
+
         </div>
     </div>
+    <script src="../js/index.js"></script>
 </body>
+
 </html>
+
+        
