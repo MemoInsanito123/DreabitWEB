@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 //Ruta por default para el Local Host
 app.get('/', (req,res) => {
-    return res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
+    return res.sendFile(path.join(__dirname, 'public', 'html', 'index.html'));
 });
 
 // Rutas de autenticación
