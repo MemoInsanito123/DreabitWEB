@@ -10,7 +10,6 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
         email : document.getElementById('input_email').value,
         password : document.getElementById('input_password').value
     };
-
     
     fetch('/sessions/login',{
         method : 'POST',
@@ -30,13 +29,13 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
             switch(data.role){
                 case 1 :
                     localStorage.setItem('user', JSON_LOGIN.email);
-                    window.location.href = '/html/client.html';
+                    window.location.href = '/client.html';
                     break;
                 case 2:
-                    window.location.href = '/html/admin.html';
+                    window.location.href = '/admin.html';
                     break;
                 case 3:
-                    window.location.href = '/html/super_admin.html';
+                    window.location.href = '/super_admin.html';
                     break;
             }
         }

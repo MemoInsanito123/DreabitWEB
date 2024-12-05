@@ -14,38 +14,55 @@
 
         </div>
 
-        <dialog id="modal_way">
-            <form id="form_way">
-                <label for="input_name_way">Nombre</label>
-                <input type="text" id="input_name_way" required>
-                
-                <label for="input_description_way">Descripcion</label>
-                <input type="text" id="input_description_way" required>
-
-                <input type="submit">
-            </form>
-
-            <button id="modal_button_cancel">Cancelar</button>
-        </dialog>
-
         <dialog id="modal_way_create">
-            <form id="form_way">
-                <label for="input_name_way">Nombre</label>
-                <input type="text" id="input_name_way" required>
+            <h2>Crear Camino</h2>
+            <form id="form_way_create">
+                <label for="input_name_way_create">Nombre</label>
+                <input type="text" id="input_name_way_create" required>
                 
-                <label for="input_description_way">Descripcion</label>
-                <input type="text" id="input_description_way" required>
+                <label for="input_description_way_create">Descripcion</label>
+                <input type="text" id="input_description_way_create" required>
 
                 <input type="submit">
             </form>
 
-            <button id="modal_button_cancel">Cancelar</button>
+            <button id="modal_button_cancel_create">Cancelar</button>
         </dialog>
 
         <dialog id="modal_way_edit">
+            <h2>Editar Camino</h2>
+            <form id="form_way_edit">
+                <label for="input_name_way_edit">Nombre</label>
+                <input type="text" id="input_name_way_edit" required>
+                
+                <label for="input_description_way_edit">Descripcion</label>
+                <input type="text" id="input_description_way_edit" required>
+
+                <input type="submit">
+            </form>
+
+            <button id="modal_button_cancel_edit">Cancelar</button>
+        </dialog>
+
+        <dialog id="modal_way_delete">
+            <h2>Eliminar Camino</h2>
+            <button id="yes_delete">Aceptar</button>
+            <button id="no_delete">Cancelar</button>
+        </dialog>
+        
+        <dialog id="modal_task_create">
+            <h2>Crear Tarea</h2>
+
+            <form id="form_task_create">
+
+                <input type="text">
+                <input type="text">
+
+            </form>
 
         </dialog>
 
+        
     </body>
 
     <script src="../js/wayScript.js"></script>
