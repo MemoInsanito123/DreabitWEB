@@ -1,9 +1,13 @@
 
 //Guardamos las etiquetas en constantes para posteriormente utilizarlas
-const modalWay = document.getElementById('modal_way');
-const buttonWay = document.getElementById('add_way');
+//Modales --PEDIENTE
+const modalWay = document.getElementById('modal_way_create');
+const madalWayEdit = document.getElementById('modal_way_edit');
 const formWay = document.getElementById('form_way');
+
+const buttonWay = document.getElementById('add_way');
 const buttonCancel = document.getElementById('modal_button_cancel');
+
 const divContainer = document.getElementById('container');
 
 //Cuando el formulario se mande
@@ -25,7 +29,7 @@ buttonCancel.addEventListener('click', () => {
 //Funcion para ejecutar la llamada al fetch de GET
 const fetchWaysGET = () => {
     const JSON_EMAIL = {
-        email : localStorage.getItem('user') || 'dreabituwu@gmail.com'
+        email : localStorage.getItem('user') || 'dreabit@gmail.com'
     }
     fetch('/ways/get', {
         method : 'POST',
@@ -41,15 +45,24 @@ const fetchWaysGET = () => {
     })
 };
 
-//Funcion para ejecutar la llamada al fetch de POST
+//Funcion para ejecutar la llamada al fetch de POST para agregar ways
+//--PENDIENTE
 const fetchWaysPOST = () => {
     
- 
+    //JSON para el email
+    const JSON_EMAIL = {
+        email : localStorage.getItem('user') || 'dreabit@gmail.com'
+    };
 
+    //Fetch para hacer la peticion a los metodos de la base de datos
     fetch('/ways/post', {
         method : 'POST',
         headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify(),
+        body : JSON.stringify(JSON_EMAIL),
+    })
+    .then(response => response.json())
+    .then(data => {
+
     })
 
 };
@@ -64,28 +77,45 @@ const showWays = (JSON_data) => {
         console.log(element);
 
         //Desestructurar el JSON del elemento
-        let {id_cycle, name_cycle, description_cycle} = element;
+        let {id_way, name_way, description_way} = element;
 
+        //Div para el camino=
         let divWays = document.createElement('div');
         divWays.className = 'way';
     
-        let buttonDelete = document.createElement('button');
-        buttonDelete.className = 'delete';
-        buttonDelete.innerHTML = 'Eliminar';
-        buttonDelete.addEventListener('click',() => {
+        //Boton para eliminar el camino
+        let buttonDeleteWay = document.createElement('button');
+        buttonDeleteWay.className = 'deleteWay';
+        buttonDeleteWay.innerHTML = 'Eliminar';
+        //Funcion ara eliminar el Camino
+        buttonDeleteWay.addEventListener('click',() => {
+
+        });
+
+        //Boton para editar el camino
+        let buttonEditWay = document.createElement('button');
+        buttonEditWay.className = 'editWay';
+        buttonEditWay.innerHTML = 'Editar'
+        //Funcion para editar los caminos
+        buttonEditWay.addEventListener('click', () => {
 
         });
     
-        let pWaysNames = document.createElement('p');
-        pWaysNames.innerHTML = name_cycle;
+        //Crear un encabezado para el nombre del camino
+        let pWaysNames = document.createElement('h2');
+        pWaysNames.innerHTML = name_way;
         
+        //Crear un parrafo para la descripcion del camino
         let pWaysDescriptions = document.createElement('p');
-        pWaysDescriptions.innerHTML = description_cycle;
+        pWaysDescriptions.innerHTML = description_way;
     
+        //Agregar los elementos al div de Camino
         divWays.appendChild(pWaysNames);
         divWays.appendChild(pWaysDescriptions);
-        divWays.appendChild(buttonDelete);
+        divWays.appendChild(buttonDeleteWay);
+        divWays.appendChild(buttonEditWay);
 
+        //Agregar el div de camino al Contenedor principal
         divContainer.appendChild(divWays);
     });
 

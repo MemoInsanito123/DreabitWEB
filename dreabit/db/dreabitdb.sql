@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS dreabitdb;
 USE dreabitdb;
--- DROP DATABASE dreabitdb;
+
+-- EXPORTAR LA FUCKING BASE
 
 CREATE TABLE IF NOT EXISTS User_Type(
 id_user_type INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -44,5 +45,6 @@ FOREIGN KEY(id_user) REFERENCES User_Dreabit(id_user)
 );
 
 INSERT INTO User_Type(name_type) VALUES('client'), ('admin'), ('superadmin');
-
 INSERT INTO User_Dreabit(id_user_type,email_user, password_user) VALUES (1,'dreabit@gmail.com', '1234');
+
+INSERT INTO Way(id_user, name_way, description_way) VALUES (1, 'Camino1', 'Esto es una camino');

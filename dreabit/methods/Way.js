@@ -6,7 +6,7 @@ router.post('/get' , (req, res) => {
 
     const {email} = req.body;
 
-    const query = 'SELECT Way.id_way, Way.name_cycle, Way.description_cycle FROM Way JOIN User_Dreabit WHERE User_Dreabit.email_user = ?';
+    const query = 'SELECT Way.id_way, Way.name_way, Way.description_way FROM Way JOIN User_Dreabit WHERE User_Dreabit.email_user = ?';
 
     db.execute(query, [email], (err, results) => {
         if(err) return res.status(500).send('Error de consulta');
@@ -19,7 +19,7 @@ router.post('/get' , (req, res) => {
 router.post('/post', (req, res) => {
 
     const {id_user, name_cycle, description_cycle} = req.body;
-    const query = 'INSERT INTO Way(id_user, name_cycle, description_cycle) VALUES(?,?,?)';
+    const query = 'INSERT INTO Way(id_user, name_way, description_way) VALUES(?,?,?)';
 
     db.execute(query, [id_user, name_cycle, description_cycle], (err, results) => {
         if(err) return res.status(500).send('Error de consulta');

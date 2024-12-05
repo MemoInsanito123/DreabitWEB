@@ -52,7 +52,9 @@ router.post('/getID', (req, res) => {
     const query = 'SELECT User_Dreabit.id_user FROM User_Dreabit WHERE email_user = ?';
     
     db.execute(query, [email], (err, results) => {
+        if(err) return res.status(500).send('Error en la consulta');
 
+        return res.json(results);
     })
 });
 
