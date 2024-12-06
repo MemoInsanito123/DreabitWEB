@@ -4,6 +4,7 @@ const db = require('./db/db.js');
 
 const sessionsRoutes = require('./methods/User_Dreabit.js');
 const waysRoutes = require('./methods/Way.js');
+const tasksRoutes = require('./methods/Task.js');
 
 const path = require('path');
 
@@ -23,6 +24,7 @@ app.get('/', (req,res) => {
 // Rutas de autenticación
 app.use('/sessions', sessionsRoutes);
 app.use('/ways', waysRoutes);
+app.use('/tasks', tasksRoutes);
 
 // Servir archivos estáticos html
 app.use(express.static('public'));

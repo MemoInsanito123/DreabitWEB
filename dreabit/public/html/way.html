@@ -55,30 +55,36 @@
             <form id="form_task_create">
 
                 <label for="">Nombre</label>
-                <input type="text">
+                <input type="text" id="task_name_create">
 
                 <label for="">Descripcion</label>
-                <input type="text">
+                <input type="text" id="task_description_create">
 
                 <label for="">Hora de Inicio</label>
-                <input type="time">
+                <input type="time" id="task_start_time_create">
 
                 <label for="">Hora de Fin</label>
-                <input type="time">
+                <input type="time" id="task_end_time_create">
                 
-                <select name="" id="">
-                    <option value="">Semanal</option>
-                    <option value="">Mensual</option>
+                <select id="frequency">
+                    <option value="weekly">Semanal</option>
+                    <option value="monthly">Mensual</option>
                 </select>
 
-                <select name="" id="">
-                    <option value="">Alta</option>
-                    <option value="">Media</option>
-                    <option value="">Baja</option>
+                <div id="container_frequency">
+
+                </div>
+
+                <select id="priority">
+                    <option value="1">Alta</option>
+                    <option value="2">Media</option>
+                    <option value="3">Baja</option>
                 </select>
 
                 <input type="submit">
             </form>
+
+            <button id="modal_task_cancel">Cancelar</button>
         </dialog>
 
         
