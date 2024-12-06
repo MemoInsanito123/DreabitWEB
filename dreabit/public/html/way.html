@@ -50,16 +50,35 @@
             <button id="no_delete">Cancelar</button>
         </dialog>
         
-        <dialog id="modal_task_create">
+        <dialog id="modal_task_create" >
             <h2>Crear Tarea</h2>
-
             <form id="form_task_create">
 
-                <input type="text">
+                <label for="">Nombre</label>
                 <input type="text">
 
+                <label for="">Descripcion</label>
+                <input type="text">
+
+                <label for="">Hora de Inicio</label>
+                <input type="time">
+
+                <label for="">Hora de Fin</label>
+                <input type="time">
+                
+                <select name="" id="">
+                    <option value="">Semanal</option>
+                    <option value="">Mensual</option>
+                </select>
+
+                <select name="" id="">
+                    <option value="">Alta</option>
+                    <option value="">Media</option>
+                    <option value="">Baja</option>
+                </select>
+
+                <input type="submit">
             </form>
-
         </dialog>
 
         

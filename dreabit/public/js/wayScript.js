@@ -4,10 +4,17 @@
 //Modales de Way
 const modalWayCreate = document.getElementById('modal_way_create');
 const modalWayEdit = document.getElementById('modal_way_edit');
-const modalWayDelete = document.getElementById('modal_way_delete')
+const modalWayDelete = document.getElementById('modal_way_delete');
+
+//Modales de Task
+const modalTaskCreate = document.getElementById('modal_task_create');
+
 //Formularios de Way
 const formWayCreate = document.getElementById('form_way_create');
 const formWayEdit = document.getElementById('form_way_edit');
+
+//Formularios de Task
+const formTaskCreate = document.getElementById('form_task_create');
 
 //Botones de Way
 const buttonCreateWay = document.getElementById('add_way');
@@ -201,12 +208,25 @@ const showWays = (JSON_data) => {
             });
         });
     
+        //-----TAREAS------
         //Boton para crear una Tarea
         let buttonAddTask = document.createElement('button');
         buttonAddTask.innerHTML = 'Crear Tarea';
         //Funcion para crear Tareas
         buttonAddTask.addEventListener('click', () => {
-            
+            modalTaskCreate.showModal();
+
+            formTaskCreate.addEventListener('submit', (event) => {
+                event.preventDefault();
+                let idWay = id_way;
+
+
+                
+
+                console.log(idWay);
+            });
+
+
         });
         
 
