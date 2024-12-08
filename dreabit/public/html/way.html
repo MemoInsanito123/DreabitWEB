@@ -54,16 +54,16 @@
             <h2>Crear Tarea</h2>
             <form id="form_task_create">
 
-                <label for="">Nombre</label>
+                <label for="task_name_create">Nombre</label>
                 <input type="text" id="task_name_create">
 
-                <label for="">Descripcion</label>
+                <label for="task_description_create">Descripcion</label>
                 <input type="text" id="task_description_create">
 
-                <label for="">Hora de Inicio</label>
+                <label for="task_start_time_create">Hora de Inicio</label>
                 <input type="time" id="task_start_time_create">
 
-                <label for="">Hora de Fin</label>
+                <label for="task_end_time_create">Hora de Fin</label>
                 <input type="time" id="task_end_time_create">
                 
                 <select id="frequency">
@@ -87,7 +87,50 @@
             <button id="modal_task_cancel">Cancelar</button>
         </dialog>
 
+        <dialog id="modal_task_edit" >
+            <h2>Editar Tarea</h2>
+            <form id="form_task_edit">
+
+                <label for="">Nombre</label>
+                <input type="text" id="task_name_edit">
+
+                <label for="">Descripcion</label>
+                <input type="text" id="task_description_edit">
+
+                <label for="">Hora de Inicio</label>
+                <input type="time" id="task_start_time_edit">
+
+                <label for="">Hora de Fin</label>
+                <input type="time" id="task_end_time_edit">
+                
+                <select id="frequency">
+                    <option value="weekly">Semanal</option>
+                    <option value="monthly">Mensual</option>
+                </select>
+
+                <div id="container_frequency">
+
+                </div>
+
+                <select id="priority">
+                    <option value="1">Alta</option>
+                    <option value="2">Media</option>
+                    <option value="3">Baja</option>
+                </select>
+
+                <input type="submit">
+            </form>
+
+            <button id="modal_task_cancel_edit">Cancelar</button>
+        </dialog>
         
+        <dialog id="modal_task_delete">
+            <h2>Eliminar Tarea</h2>
+            <button id="yes_delete_task">Aceptar</button>
+            <button id="no_delete_task">Cancelar</button>
+        </dialog>
+        
+
     </body>
 
     <script src="../js/wayScript.js"></script>

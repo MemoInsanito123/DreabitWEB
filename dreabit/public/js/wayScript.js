@@ -137,10 +137,9 @@ const addWays = (id) => {
 
 };
 
-//Mostrar los caminos cada vez que inicia la pagina
+//Mostrar los caminos cada vez que inicia la pagina, incluye los botones para crear una tarea
 //Se le pasa como atributo un objeto que contenga la informacion
 const showWays = (JSON_data) => {
-
     //Se itera dicho objeto (array) una cantidad de n veces
     JSON_data.forEach(element => {
 
@@ -263,14 +262,27 @@ const showWays = (JSON_data) => {
                     frequency_months : verifyButtonsMonth().join(','),
                 }
 
-                console.log(idWay);
-                console.log(JSON_task_post);
+                //Ejercutar el Fetch para enviar la infromacion a la base de datos
+
+                fetch('/tasks/post', {
+                    method:'POST',
+                    headers: {'Content-Type' : 'application/json'},
+                    body : JSON.stringify(JSON_task_post),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Tarea Registrada con exito');
+                })
+                .catch(err => {
+                    console.err(err);
+                })
+
+                //Mostrar la info
+                console.log('ID Camino: ' + idWay);
+                console.log('Tarea para el POST' + JSON_task_post);
             });
-
-
         });
         
-
         //Crear un encabezado para el nombre del camino
         let h2WaysNames = document.createElement('h2');
         h2WaysNames.innerHTML = name_way;
@@ -278,8 +290,6 @@ const showWays = (JSON_data) => {
         //Crear un parrafo para la descripcion del camino
         let pWaysDescriptions = document.createElement('p');
         pWaysDescriptions.innerHTML = description_way;
-
-
     
         //Agregar los elementos al div de Camino
         divWays.appendChild(h2WaysNames);
@@ -288,10 +298,238 @@ const showWays = (JSON_data) => {
         divWays.appendChild(buttonEditWay);
         divWays.appendChild(buttonAddTask);
 
+        showTasks(divWays);
+
         //Agregar el div de camino al Contenedor principal
         divContainer.appendChild(divWays);
     });
+};
 
+//Mostrar las tareas en el DOM le pasamos como parametro el divWay para agregarlo al mismo camino
+const showTasks = (divWay) => {
+    //Obtemos el ID del Usuario mediante el correo electronico almacenado en el LocalStorage
+    fetch('/sessions/getID' , {
+        method : 'POST',
+        headers : {'Content-Type' : 'application/json'},
+        body : JSON.stringify({email : localStorage.getItem('user') || 'dreabit@gmail.com'})
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        let idUser;
+        //Iteramos el argumento data que forzosamente tiene longitud 1
+        data.forEach(element => {
+            idUser = element.id_user;
+        });
+
+        //Obtener las tareas mediante el ID de usuario
+        fetch('/tasks/get', {
+            method : 'POST',
+            headers : {'Content-Type' : 'application/json'},
+            body : JSON.stringify({id_user : idUser})
+        })
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(element => {
+                //Desestruturar la informacion del elemento que iteramos
+                let {id_task, task, frequency_days, frequency_months, priority_type} = element;
+
+                //Cambiar la prioridad
+                switch(priority_type){
+                    case 'high':
+                        priority_type = 'ALTA';
+                        break;
+                    case 'medium':
+                        priority_type = 'MEDIA';
+                        break;
+                    case 'low':
+                        priority_type = 'BAJA';
+                        break;
+                    default:
+                        priority_type = 'NULL';
+                        break;
+                }
+
+                //Frecuencia Final
+                let frequency_final;
+
+                if(frequency_days !== null){
+                    frequency_final = frequency_days.split(',');
+                }
+                else if(frequency_months !== null){
+                    frequency_final = frequency_months.split(',');
+                }
+                else if(frequency_days === null && frequency_months === null){
+                    frequency_final = 'NULL';
+                }
+                else{
+                    frequency_final = 'NULL';
+                }
+
+                //Crear los elementos
+                // Crear el contenedor principal para la tarea
+                const taskCard = document.createElement('div');
+                taskCard.classList.add('task-card');
+
+                // Crear el div la cabecera 
+                const taskHeader = document.createElement('div');
+                taskHeader.classList.add('task-header');
+
+                // Botón de eliminar
+                //Contenedor para el boton de eliminar
+                const deleteContainer = document.createElement('div');
+                deleteContainer.classList.add('delete-container-task');
+
+                //Boton de eliminar
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-button');
+                deleteButton.textContent = 'Eliminar Tarea';
+                //Agregar al contenedor del boton el boton
+                deleteContainer.appendChild(deleteButton);
+
+                // Título de la tarea
+                const taskTitle = document.createElement('h2');
+                taskTitle.classList.add('task-title');
+                taskTitle.textContent = task.name_task;
+
+                // Acciones (botones de editar y agregar subtarea)
+                //Contenedor de acciones
+                const actions = document.createElement('div');
+                actions.classList.add('actions');
+
+                const editButton = document.createElement('button');
+                editButton.classList.add('edit-button');
+                editButton.textContent = 'Editar Tarea';
+
+                const addButton = document.createElement('button');
+                addButton.classList.add('add-button');
+                addButton.textContent = 'Agregar Sub-tarea';
+
+                actions.appendChild(editButton);
+                actions.appendChild(addButton);
+
+                // Agregar todo a la cabecera
+                taskHeader.appendChild(deleteContainer);
+                taskHeader.appendChild(taskTitle);
+                taskHeader.appendChild(actions);
+
+                // Sección de tiempo
+                // Contenedor para el tiempo
+                const taskTime = document.createElement('div');
+                taskTime.classList.add('task-time');
+                //Agregamos la informacion de la hora
+                taskTime.innerHTML = `
+                    <span>Hora: </span>
+                    <span>de</span>
+                    <span class="time-start">${task.start_time}</span>
+                    <span>hasta</span>
+                    <span class="time-end">${task.end_time}</span>
+                `;
+
+                // Sección de descripción
+                //Contenedor de descripcion
+                const taskDescription = document.createElement('div');
+                taskDescription.classList.add('task-description');
+
+                //Agregamos la informacion de la descripcion
+                taskDescription.innerHTML = `
+                    <span>Descripcion: </span>
+                    <span class="description">${task.description_task}</span>
+                `;
+
+                // Detalles de la tarea
+                // Contenedor para los detalles de la tarea
+                const taskDetails = document.createElement('div');
+                taskDetails.classList.add('task-details');
+
+                //Contenedor para la frecuencia
+                const frequency = document.createElement('div');
+                frequency.classList.add('frequency');
+
+                //Contenedor para la informacion de la frecuencia
+                const frequencyData = document.createElement('div');
+                frequencyData.classList.add('frequency-data');
+
+                //Mediante la frecuencia final
+                frequency_final.forEach(element => {
+                    let spanData = document.createElement('span');
+                    switch(element) {
+                        case 'L':
+                            element = 'Lunes';
+                            break;
+                        case 'M':
+                            element = 'Martes';
+                            break;
+                        case 'MI':
+                            element = 'Miércoles';
+                            break;
+                        case 'J':
+                            element = 'Jueves';
+                            break;
+                        case 'V':
+                            element = 'Viernes';
+                            break;
+                        case 'S':
+                            element = 'Sábado';
+                            break;
+                        case 'D':
+                            element = 'Domingo';
+                            break;
+                    }
+                    spanData.textContent = element;
+
+                    frequencyData.appendChild(spanData);
+                });
+
+                
+                if(frequency_days === null && frequency_months !== null){
+                    frequency.innerHTML = `
+                    <span>Frecuencia: </span>
+                    <span class="frequency-value">Mensual</span>
+                    `;    
+                }
+                else if(frequency_months === null && frequency_days !== null && frequency_days.length === 14){
+                    frequency.innerHTML = `
+                    <span>Frecuencia: </span>
+                    <span class="frequency-value">Diaria</span>
+                    `;    
+                }
+                else if (frequency_months === null && frequency_days !== null && frequency_days.length < 14){
+                    frequency.innerHTML = `
+                    <span>Frecuencia: </span>
+                    <span class="frequency-value">Semanal</span>
+                    `;  
+                }
+
+                const priority = document.createElement('div');
+                priority.classList.add('priority');
+                priority.innerHTML = `
+                    <span>Prioridad: </span>
+                    <span class="priority-value">${priority_type}</span>
+                `;
+
+                taskDetails.appendChild(frequency);
+                taskDetails.appendChild(priority);
+                taskDetails.appendChild(frequencyData);
+
+                // Agregar todos los elementos al contenedor principal
+                taskCard.appendChild(taskHeader);
+                taskCard.appendChild(taskTime);
+                taskCard.appendChild(taskDescription);
+                taskCard.appendChild(taskDetails);
+
+                // Agregar al DOM
+                divWay.appendChild(taskCard);
+
+            })
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    })
+    .catch(err => {
+        console.error(err);
+    })
 };
 
 //Agregar los CheckBoxDays al Div
@@ -304,7 +542,7 @@ const addDaysCheckBoxDiv = () => {
         checkBox.value = element;
 
         let label = document.createElement('label');
-        label.id = element;
+        label.for = element;
         label.innerHTML = element;
 
         divContainerFrequency.appendChild(label);
@@ -491,9 +729,10 @@ const verifySession = () => {
     }
 };
 
-
-
 //Verificar si existe una sesion activa, de lo contrario enviar al index
 verifySession();
 //Funcion para mostrar por pantalla los registros que hay de caminos en la base de datos
 fetchWaysGET();
+
+//Test Functions
+//showTasks();
