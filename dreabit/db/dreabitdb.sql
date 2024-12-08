@@ -70,10 +70,21 @@ FOREIGN KEY(id_task) REFERENCES Task(id_task)
 CREATE TABLE IF NOT EXISTS Frequency_Months(
 id_frequency_months INTEGER PRIMARY KEY AUTO_INCREMENT,
 id_task INTEGER NOT NULL,
-frequency_days VARCHAR(20) NOT NULL,
+frequency_months VARCHAR(20) NOT NULL,
 
 FOREIGN KEY(id_task) REFERENCES Task(id_task)
 );
+
+CREATE TABLE IF NOT EXISTS Complete_Task(
+id_complete_task INTEGER PRIMARY KEY AUTO_INCREMENT,
+id_task INTEGER NOT NULL,
+complete INTEGER,
+date_complete DATE,
+
+FOREIGN KEY(id_task) REFERENCES Task(id_task)
+);
+
+
 
 -- INSERT FOR THE TABLE (CATALOG)
 
@@ -86,7 +97,10 @@ SELECT * FROM User_Birthdate;
 SELECT * FROM User_Dreabit;
 SELECT * FROM User_Name;
 SELECT * FROM Way;
-
+SELECT * FROM Task;
+SELECT * FROM Frequency_Days;
+SELECT * FROM Frequency_Months;
+SELECT * FROM Priority_Task;
 
 -- TESTS THE MOST INSANES
 INSERT INTO User_Dreabit (id_user_type, email_user, password_user)
@@ -106,4 +120,17 @@ UPDATE Way
 SET name_way = 'Camino Chido'
 WHERE id_way = 1;
 
-DELETE FROM Way WHERE id_way = 8;
+SELECT Task.id_task, Task.task, Frequency_Days.frequency_days, Frequency_Months.frequency_months ,Priority_Task.priority_type FROM Task
+LEFT JOIN Frequency_Days ON Frequency_Days.id_task = Task.id_task
+LEFT JOIN Frequency_Months ON Frequency_Months.id_task = Task.id_task
+INNER JOIN Priority_Task ON Priority_Task.id_priority = Task.id_priority
+INNER JOIN Way ON Way.id_way = Task.id_way
+INNER JOIN User_Dreabit ON User_Dreabit.id_user = Way.id_user
+WHERE User_Dreabit.id_user = 1
+ORDER BY 
+    CASE 
+        WHEN Priority_Task.priority_type = 'High' THEN 1
+        WHEN Priority_Task.priority_type = 'Medium' THEN 2
+        WHEN Priority_Task.priority_type = 'Low' THEN 3
+        ELSE 4
+    END;
