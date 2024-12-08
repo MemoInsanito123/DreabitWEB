@@ -55,23 +55,23 @@
             <form id="form_task_create">
 
                 <label for="task_name_create">Nombre</label>
-                <input type="text" id="task_name_create">
+                <input type="text" id="task_name_create" required>
 
                 <label for="task_description_create">Descripcion</label>
-                <input type="text" id="task_description_create">
+                <input type="text" id="task_description_create" required>
 
                 <label for="task_start_time_create">Hora de Inicio</label>
-                <input type="time" id="task_start_time_create">
+                <input type="time" id="task_start_time_create" required>
 
                 <label for="task_end_time_create">Hora de Fin</label>
-                <input type="time" id="task_end_time_create">
+                <input type="time" id="task_end_time_create" required>
                 
                 <select id="frequency">
                     <option value="weekly">Semanal</option>
                     <option value="monthly">Mensual</option>
                 </select>
 
-                <div id="container_frequency">
+                <div id="container_frequency_create">
 
                 </div>
 
@@ -91,28 +91,28 @@
             <h2>Editar Tarea</h2>
             <form id="form_task_edit">
 
-                <label for="">Nombre</label>
+                <label for="task_name_edit">Nombre</label>
                 <input type="text" id="task_name_edit">
 
-                <label for="">Descripcion</label>
+                <label for="task_description_edit">Descripcion</label>
                 <input type="text" id="task_description_edit">
 
-                <label for="">Hora de Inicio</label>
+                <label for="task_start_time_edit">Hora de Inicio</label>
                 <input type="time" id="task_start_time_edit">
 
-                <label for="">Hora de Fin</label>
+                <label for="task_end_time_edit">Hora de Fin</label>
                 <input type="time" id="task_end_time_edit">
                 
-                <select id="frequency">
+                <select id="frequency_edit">
                     <option value="weekly">Semanal</option>
                     <option value="monthly">Mensual</option>
                 </select>
 
-                <div id="container_frequency">
+                <div id="container_frequency_edit">
 
                 </div>
 
-                <select id="priority">
+                <select id="priority_edit">
                     <option value="1">Alta</option>
                     <option value="2">Media</option>
                     <option value="3">Baja</option>

@@ -8,6 +8,8 @@ const modalWayDelete = document.getElementById('modal_way_delete');
 
 //Modales de Task
 const modalTaskCreate = document.getElementById('modal_task_create');
+const modalTaskEdit = document.getElementById('modal_task_edit');
+const modalTaskDelete = document.getElementById('modal_task_delete');
 
 //Formularios de Way
 const formWayCreate = document.getElementById('form_way_create');
@@ -15,6 +17,9 @@ const formWayEdit = document.getElementById('form_way_edit');
 
 //Formularios de Task
 const formTaskCreate = document.getElementById('form_task_create');
+const formTaskEdit = document.getElementById('form_task_edit');
+const formTaskDelete = document.getElementById('form_task_delete');
+
 
 //Botones de Way
 const buttonCreateWay = document.getElementById('add_way');
@@ -25,16 +30,28 @@ const buttonCancelWayDelete = document.getElementById('no_delete');
 
 //Botones de Task
 const buttonCancelTaskCreate = document.getElementById('modal_task_cancel');
+const buttonCancelTaskEdit = document.getElementById('modal_task_cancel_edit');
+const buttonCancelTaskDelete = document.getElementById('no_delete_task');
 
+//Eliminar Way
 const deleteYes = document.getElementById('yes_delete');
+//Eliminar Task
+const deleteYesTask = document.getElementById('yes_delete_task');
+
 //Contenedor general
 const divContainer = document.getElementById('container');
 //Contenedor para dias
-const divContainerFrequency = document.getElementById('container_frequency');
+const divContainerFrequency = document.getElementById('container_frequency_create');
+const divContainerFrequencyEdit = document.getElementById('container_frequency_edit');
 
-//Select de taks
+
+//Select de task Create
 const selectFrequency = document.getElementById('frequency');
 const selectPriority = document.getElementById('priority');
+
+//Select de task Edit
+const selectFrequencyEdit = document.getElementById('frequency_edit');
+const selectPriorityEdit = document.getElementById('priority_edit');
 
 //Formulario Create Way se envia
 formWayCreate.addEventListener('submit', (event) => {
@@ -66,6 +83,16 @@ buttonCancelWayDelete.addEventListener('click', () => {
 buttonCancelTaskCreate.addEventListener('click', () => {
     modalTaskCreate.close();
 });
+
+//Boton para cancelat el modal de Delete Task
+buttonCancelTaskEdit.addEventListener('click', () => {
+    modalTaskEdit.close();
+});
+
+buttonCancelTaskDelete.addEventListener('click', () => {
+    modalTaskDelete.close();
+});
+
 
 //Funcion para ejecutar la llamada al fetch de GET que retorna en la data los caminos dependiendo de la sesion del usuario
 const fetchWaysGET = () => {
@@ -230,18 +257,18 @@ const showWays = (JSON_data) => {
             modalTaskCreate.showModal();
 
             //Verificar en que opcion se encuentra el selector de frecuencia
-            updateDivFrequecy();
+            updateDivFrequecy(divContainerFrequency, selectFrequency);
 
 
             //Funcion para cuando el Selector cambie
             selectFrequency.addEventListener('change', () => {
                 //Actualizamos ese div dependiendo de la opcion
-                updateDivFrequecy();
+                updateDivFrequecy(divContainerFrequency, selectFrequency);
             });
 
             //Cuando el formulario del modal Create task se envia
             formTaskCreate.addEventListener('submit', (event) => {
-                event.preventDefault();
+                //event.preventDefault();
                 //Guardar el Id del camino
                 let idWay = id_way;
 
@@ -258,12 +285,10 @@ const showWays = (JSON_data) => {
                     id_way_db : idWay,
                     task : JSON_task,
                     priority : selectPriority.value,
-                    frequency_days: verifyCheckBox().join(','),
-                    frequency_months : verifyButtonsMonth().join(','),
+                    frequency: verifyCheckBox(divContainerFrequency).join(',') || verifyButtonsMonth(divContainerFrequency).join(',') ,
                 }
 
                 //Ejercutar el Fetch para enviar la infromacion a la base de datos
-
                 fetch('/tasks/post', {
                     method:'POST',
                     headers: {'Content-Type' : 'application/json'},
@@ -332,7 +357,7 @@ const showTasks = (divWay) => {
         .then(data => {
             data.forEach(element => {
                 //Desestruturar la informacion del elemento que iteramos
-                let {id_task, task, frequency_days, frequency_months, priority_type} = element;
+                let {id_task, task, frequency, priority_type} = element;
 
                 //Cambiar la prioridad
                 switch(priority_type){
@@ -351,20 +376,7 @@ const showTasks = (divWay) => {
                 }
 
                 //Frecuencia Final
-                let frequency_final;
-
-                if(frequency_days !== null){
-                    frequency_final = frequency_days.split(',');
-                }
-                else if(frequency_months !== null){
-                    frequency_final = frequency_months.split(',');
-                }
-                else if(frequency_days === null && frequency_months === null){
-                    frequency_final = 'NULL';
-                }
-                else{
-                    frequency_final = 'NULL';
-                }
+                let frequency_final = frequency.split(',') || 'NULL';
 
                 //Crear los elementos
                 // Crear el contenedor principal para la tarea
@@ -384,6 +396,32 @@ const showTasks = (divWay) => {
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('delete-button');
                 deleteButton.textContent = 'Eliminar Tarea';
+
+                //Funcion para eliminar la tarea
+                deleteButton.addEventListener('click', () => {
+                    
+                    //Mostrar el modal eliminar
+                    modalTaskDelete.showModal();
+
+                    //Guardar el id de la tarea
+                    let IDTask = id_task;
+                    
+                    //Aceptar eliminar la Tarea
+                    deleteYesTask.addEventListener('click', () => {  
+                        fetch('/tasks/delete', {
+                            method : 'DELETE',
+                            headers : {'Content-Type' : 'application/json'},
+                            body : JSON.stringify({id_task_db : IDTask})
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log('Tarea Eliminada con exito'))
+                        .catch(err => console.error(err));
+
+                        location.reload();
+                    });
+
+                }); 
+
                 //Agregar al contenedor del boton el boton
                 deleteContainer.appendChild(deleteButton);
 
@@ -400,6 +438,52 @@ const showTasks = (divWay) => {
                 const editButton = document.createElement('button');
                 editButton.classList.add('edit-button');
                 editButton.textContent = 'Editar Tarea';
+
+                //Funcion de Boton para Editar la tarea
+                editButton.addEventListener('click', () => {
+                    modalTaskEdit.showModal();
+
+                    //Actualizar el DIV de frecuencia de los dias
+                    updateDivFrequecy(divContainerFrequencyEdit, selectFrequencyEdit);
+
+                    //Cuando se cambie el selector Actualizar el Div
+                    selectFrequencyEdit.addEventListener('change', () => {
+                        updateDivFrequecy(divContainerFrequencyEdit, selectFrequencyEdit);
+                    })
+
+                    formTaskEdit.addEventListener('submit', () => {
+                        
+                        let IDTask = id_task;
+
+                        let JSON_task_edit = {
+                            name_task : document.getElementById('task_name_edit').value,
+                            description_task : document.getElementById('task_description_edit').value,
+                            start_time : document.getElementById('task_start_time_edit').value,
+                            end_time : document.getElementById('task_end_time_edit').value,
+                        }
+
+                        let JSON_task_put = {
+                            id_task_db : IDTask,
+                            task :  JSON_task_edit,
+                            priority : document.getElementById('priority_edit').value,
+                            frequency : verifyCheckBox(divContainerFrequencyEdit).join(',') || verifyButtonsMonth(divContainerFrequencyEdit).join(',')
+                        }
+
+                        fetch('/tasks/put', {
+                            method : 'POST',
+                            headers : {'Content-Type' : 'application/json'},
+                            body : JSON.stringify(),
+                        })
+                        .then(response => response.join())
+                        .then(data => {
+                            console.log('Tarea Actulizada con exito')
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                    });
+
+                });
 
                 const addButton = document.createElement('button');
                 addButton.classList.add('add-button');
@@ -443,8 +527,8 @@ const showTasks = (divWay) => {
                 taskDetails.classList.add('task-details');
 
                 //Contenedor para la frecuencia
-                const frequency = document.createElement('div');
-                frequency.classList.add('frequency');
+                const frequencyDIV = document.createElement('div');
+                frequencyDIV.classList.add('frequency');
 
                 //Contenedor para la informacion de la frecuencia
                 const frequencyData = document.createElement('div');
@@ -482,22 +566,22 @@ const showTasks = (divWay) => {
                 });
 
                 
-                if(frequency_days === null && frequency_months !== null){
-                    frequency.innerHTML = `
+                if(/^[a-zA-Z,]+$/.test(frequency) && frequency.length === 14){
+                    frequencyDIV.innerHTML = `
                     <span>Frecuencia: </span>
-                    <span class="frequency-value">Mensual</span>
+                    <span class="frequency-value">Diariamente</span>
                     `;    
                 }
-                else if(frequency_months === null && frequency_days !== null && frequency_days.length === 14){
-                    frequency.innerHTML = `
+                else if(/^[0-9,]+$/.test(frequency)){
+                    frequencyDIV.innerHTML = `
                     <span>Frecuencia: </span>
-                    <span class="frequency-value">Diaria</span>
+                    <span class="frequency-value">Mensualmente</span>
                     `;    
                 }
-                else if (frequency_months === null && frequency_days !== null && frequency_days.length < 14){
-                    frequency.innerHTML = `
+                else if(/^[a-zA-Z,]+$/.test(frequency) && frequency.length < 14){
+                    frequencyDIV.innerHTML = `
                     <span>Frecuencia: </span>
-                    <span class="frequency-value">Semanal</span>
+                    <span class="frequency-value">Semanalmente</span>
                     `;  
                 }
 
@@ -508,7 +592,7 @@ const showTasks = (divWay) => {
                     <span class="priority-value">${priority_type}</span>
                 `;
 
-                taskDetails.appendChild(frequency);
+                taskDetails.appendChild(frequencyDIV);
                 taskDetails.appendChild(priority);
                 taskDetails.appendChild(frequencyData);
 
@@ -533,7 +617,7 @@ const showTasks = (divWay) => {
 };
 
 //Agregar los CheckBoxDays al Div
-const addDaysCheckBoxDiv = () => {
+const addDaysCheckBoxDiv = (div) => {
     let days = ['L','M','MI','J','V','S','D'];
     days.forEach(element => {
         let checkBox = document.createElement('input');
@@ -545,13 +629,13 @@ const addDaysCheckBoxDiv = () => {
         label.for = element;
         label.innerHTML = element;
 
-        divContainerFrequency.appendChild(label);
-        divContainerFrequency.appendChild(checkBox);
+        div.appendChild(label);
+        div.appendChild(checkBox);
     });
 };
 
 //Agrega una tabla que contenga botones con los dias del mes al Div
-const addMonthsTableDiv = () => {
+const addMonthsTableDiv = (div) => {
     //Creamos un Array de 31 elementos que repesentarian los dias del mes
     let daysMonth = [...Array(31).keys()].map(i => i + 1);
 
@@ -559,7 +643,7 @@ const addMonthsTableDiv = () => {
     let table = document.createElement('table');
     table.id = 'table_days_month';
 
-    divContainerFrequency.appendChild(table);
+    div.appendChild(table);
 
     //Configurar la tabla con los botones
     daysMonth.forEach(element => {
@@ -688,6 +772,7 @@ const verifyCheckBox = () => {
             daysActive.push(element.value);
         }
     });
+
     return daysActive;
 };
 
@@ -702,23 +787,23 @@ const verifyButtonsMonth = () => {
         }
     });
 
+
     return daysActive;
 }
 
 //Revisa en que seleccion se encuentra el selector de frecuencia y muestra en el divContenedor de Checkboxs lo correspondiente
-const updateDivFrequecy = () => {
-    if(selectFrequency.value == 'weekly'){
+const updateDivFrequecy = (div, select) => {
+    if(select.value == 'weekly'){
         //Reiniciar el contenido del Div
-        divContainerFrequency.innerHTML = '';
+        div.innerHTML = '';
         //Agregar los CheckBox de los dias al Div
-        addDaysCheckBoxDiv();
+        addDaysCheckBoxDiv(div);
     }
-    else{
+    else if(select.value == 'monthly'){
         //Reiniciar el contenido del Div
-        divContainerFrequency.innerHTML = '';
+        div.innerHTML = '';
         //Agregar la tabla de Botonesal div
-        addMonthsTableDiv();
-
+        addMonthsTableDiv(div);
     }
 };
 

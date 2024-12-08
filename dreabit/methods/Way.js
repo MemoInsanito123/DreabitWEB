@@ -21,6 +21,7 @@ router.post('/post', (req, res) => {
     const {id_user, name_cycle, description_cycle} = req.body;
     const query = 'INSERT INTO Way(id_user, name_way, description_way) VALUES(?,?,?)';
 
+    
     db.execute(query, [id_user, name_cycle, description_cycle], (err, results) => {
         if(err) return res.status(500).send('Error de consulta');
 
