@@ -5,6 +5,26 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
     //Evitar el envio regular del formulario
     event.preventDefault();
 
+    var email = document.getElementById('input_email').value;
+    var password = document.getElementById('input_password').value;
+
+    const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$/;
+
+    if (email === '' || password === '') {
+        alert('Por favor completa todos los campos')
+        return;
+    }
+
+    if ( !regexCorreo.test(email) ) {
+        alert('Por favor, ingresa un correo válido')
+        return;
+    }
+
+    if ( password > 100 ) {
+        alert('Por favor ingresa una contraseña válida')
+        return;
+    }
+
     //Crear el JSON que se le pasara como parametro al body
     let JSON_LOGIN = {
         email : document.getElementById('input_email').value,
