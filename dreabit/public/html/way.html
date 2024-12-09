@@ -4,89 +4,102 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Way</title>
+
+        <link rel="stylesheet" href="../styles/task.css">
+        <link rel="stylesheet" href="../styles/way.css">
     </head>
     <body>
 
-        <button id="add_way">Agregar Camino</button>
+        <button id="add_way" class="btn btn-add-way">Agregar Camino</button>
 
 
-        <div id="container">
+        <div id="container" class="container-main" >
 
         </div>
 
-        <dialog id="modal_way_create">
-            <h2>Crear Camino</h2>
-            <form id="form_way_create">
-                <label for="input_name_way_create">Nombre</label>
-                <input type="text" id="input_name_way_create" required>
+        <dialog id="modal_way_create" class="modal-create-way">
+            <button id="modal_button_cancel_create" class="btn-cancel">CANCELAR</button>
+            
+            <h2 class="modal-title">CREAR CAMINO</h2>
+            <form id="form_way_create" class="form form-create-way">
+                <label for="input_name_way_create">NOMBRE</label>
+                <input type="text" id="input_name_way_create" class="input_way" required>
                 
-                <label for="input_description_way_create">Descripcion</label>
-                <input type="text" id="input_description_way_create" required>
+                <label for="input_description_way_create">DESCRIPCIÓN</label>
+                <input type="text" id="input_description_way_create" class="input_way" required>
 
-                <input type="submit">
+                <input type="submit" class="btn-submit">
             </form>
 
-            <button id="modal_button_cancel_create">Cancelar</button>
         </dialog>
 
-        <dialog id="modal_way_edit">
-            <h2>Editar Camino</h2>
-            <form id="form_way_edit">
-                <label for="input_name_way_edit">Nombre</label>
-                <input type="text" id="input_name_way_edit" required>
+        <dialog id="modal_way_edit" class="modal-create-way">
+            <button id="modal_button_cancel_edit" class="btn-cancel">CANCELAR</button>
+            <h2 class="modal-title">EDITAR CAMINO</h2>
+            
+            <form id="form_way_edit"  class="form form-edit-way">
+                <label for="input_name_way_edit" class="label">NOMBRE</label>
+                <input type="text" id="input_name_way_edit" class="input_way required">
                 
-                <label for="input_description_way_edit">Descripcion</label>
-                <input type="text" id="input_description_way_edit" required>
+                <label for="input_description_way_edit" class="label">DESCRIPCIÓN</label>
+                <input type="text" id="input_description_way_edit" class="input_way" required>
 
-                <input type="submit">
+                <input type="submit" class="btn btn-submit">
             </form>
 
-            <button id="modal_button_cancel_edit">Cancelar</button>
+
         </dialog>
 
-        <dialog id="modal_way_delete">
-            <h2>Eliminar Camino</h2>
-            <button id="yes_delete">Aceptar</button>
-            <button id="no_delete">Cancelar</button>
+        <dialog id="modal_way_delete" class="modal-delete-way">
+            <h2 class="modal-title">ELIMINAR CAMINO</h2>
+            <button id="yes_delete" class="btn-submit">ACEPTAR</button>
+            <button id="no_delete" class="btn btn-cancel">CANCELAR</button>
         </dialog>
         
-        <dialog id="modal_task_create" >
-            <h2>Crear Tarea</h2>
-            <form id="form_task_create">
+        <dialog id="modal_task_create" class="modal-create-task">
+            <h2 class="modal-title">CREAR TAREA</h2>
+            <form id="form_task_create" class="form form-create-task">
 
-                <label for="task_name_create">Nombre</label>
-                <input type="text" id="task_name_create" required>
+                <div class="column">
+                    <label for="task_name_create">NOMBRE</label>
+                    <input type="text" id="task_name_create" class="input_task" required>
 
-                <label for="task_description_create">Descripcion</label>
-                <input type="text" id="task_description_create" required>
-
-                <label for="task_start_time_create">Hora de Inicio</label>
-                <input type="time" id="task_start_time_create" required>
-
-                <label for="task_end_time_create">Hora de Fin</label>
-                <input type="time" id="task_end_time_create" required>
+                    <label for="task_description_create">DESCRIPCIÓN</label>
+                    <input type="text" id="task_description_create" class="input_task" required>
+                </div>
                 
-                <select id="frequency">
-                    <option value="weekly">Semanal</option>
-                    <option value="monthly">Mensual</option>
-                </select>
+                <div class="column">
+                    <label for="task_start_time_create" >HORA DE INICIO</label>
+                    <input type="time" id="task_start_time_create" class="input_task" required>
+
+                    <label for="task_end_time_create">HORA DE FIN</label>
+                    <input type="time" id="task_end_time_create" class="input_task" required>
+                </div>
+
+                <div class="column">
+                    <select id="frequency" class="input_task">
+                        <option value="weekly">Semanal</option>
+                        <option value="monthly">Mensual</option>
+                    </select>
+
+                    <select id="priority" class="input_task">
+                        <option value="1">Alta</option>
+                        <option value="2">Media</option>
+                        <option value="3">Baja</option>
+                    </select>
+                </div>
 
                 <div id="container_frequency_create">
 
                 </div>
 
-                <select id="priority">
-                    <option value="1">Alta</option>
-                    <option value="2">Media</option>
-                    <option value="3">Baja</option>
-                </select>
-
-                <input type="submit">
+                <input type="submit" class="btn btn-submit">
             </form>
 
-            <button id="modal_task_cancel">Cancelar</button>
+            <button id="modal_task_cancel" class="btn btn-cancel">CANCELAR</button>
         </dialog>
 
+        <!-- Pendiente CSS -->
         <dialog id="modal_task_edit" >
             <h2>Editar Tarea</h2>
             <form id="form_task_edit">
@@ -109,7 +122,6 @@
                 </select>
 
                 <div id="container_frequency_edit">
-
                 </div>
 
                 <select id="priority_edit">

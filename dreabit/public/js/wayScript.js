@@ -310,7 +310,7 @@ const showWays = (JSON_data) => {
         
         //Crear un encabezado para el nombre del camino
         let h2WaysNames = document.createElement('h2');
-        h2WaysNames.innerHTML = name_way;
+        h2WaysNames.innerHTML = name_way.toUpperCase();
         
         //Crear un parrafo para la descripcion del camino
         let pWaysDescriptions = document.createElement('p');
@@ -395,7 +395,13 @@ const showTasks = (divWay) => {
                 //Boton de eliminar
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('delete-button');
-                deleteButton.textContent = 'Eliminar Tarea';
+                
+                //Imagen del boton eliminar
+                const imgDeleteButton = document.createElement('img');
+                imgDeleteButton.classList.add('icon');
+                imgDeleteButton.src = '../img/delete.png';
+                //Agregar la imagen al boton
+                deleteButton.appendChild(imgDeleteButton);
 
                 //Funcion para eliminar la tarea
                 deleteButton.addEventListener('click', () => {
@@ -428,7 +434,7 @@ const showTasks = (divWay) => {
                 // Título de la tarea
                 const taskTitle = document.createElement('h2');
                 taskTitle.classList.add('task-title');
-                taskTitle.textContent = task.name_task;
+                taskTitle.textContent = task.name_task.toUpperCase();
 
                 // Acciones (botones de editar y agregar subtarea)
                 //Contenedor de acciones
@@ -437,7 +443,13 @@ const showTasks = (divWay) => {
 
                 const editButton = document.createElement('button');
                 editButton.classList.add('edit-button');
-                editButton.textContent = 'Editar Tarea';
+                
+                //Imagen del boton editar
+                const imgEditButton = document.createElement('img');
+                imgEditButton.classList.add('icon');
+                imgEditButton.src = '../img/edit.png';
+                //Agregar la imagen al boton
+                editButton.appendChild(imgEditButton);
 
                 //Funcion de Boton para Editar la tarea
                 editButton.addEventListener('click', () => {
@@ -487,7 +499,13 @@ const showTasks = (divWay) => {
 
                 const addButton = document.createElement('button');
                 addButton.classList.add('add-button');
-                addButton.textContent = 'Agregar Sub-tarea';
+
+                //Imagen del boton editar
+                const imgAddButton = document.createElement('img');
+                imgAddButton.classList.add('icon');
+                imgAddButton.src = '../img/add.png';
+                //Agregar la imagen al boton
+                addButton.appendChild(imgAddButton);
 
                 actions.appendChild(editButton);
                 actions.appendChild(addButton);
@@ -503,11 +521,11 @@ const showTasks = (divWay) => {
                 taskTime.classList.add('task-time');
                 //Agregamos la informacion de la hora
                 taskTime.innerHTML = `
-                    <span>Hora: </span>
+                    <p>Hora:</p>
                     <span>de</span>
-                    <span class="time-start">${task.start_time}</span>
+                    <div class="time-start">${task.start_time}</div>
                     <span>hasta</span>
-                    <span class="time-end">${task.end_time}</span>
+                    <div class="time-end">${task.end_time}</div>
                 `;
 
                 // Sección de descripción
@@ -593,8 +611,8 @@ const showTasks = (divWay) => {
                 `;
 
                 taskDetails.appendChild(frequencyDIV);
-                taskDetails.appendChild(priority);
                 taskDetails.appendChild(frequencyData);
+                taskDetails.appendChild(priority);
 
                 // Agregar todos los elementos al contenedor principal
                 taskCard.appendChild(taskHeader);

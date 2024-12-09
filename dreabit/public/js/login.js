@@ -20,7 +20,7 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
         return;
     }
 
-    if ( password > 100 ) {
+    if (password.length > 100 ) {
         alert('Por favor ingresa una contraseña válida')
         return;
     }
@@ -40,6 +40,7 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
     })
     .then(response => {
         if (!response.ok) {
+            alert('Email no registrado o Password incorrecta');
             throw new Error('Credenciales incorrectas o error del servidor');
         }
         return response.json();
