@@ -464,8 +464,10 @@ const showTasks = (divWay) => {
                         updateDivFrequecy(divContainerFrequencyEdit, selectFrequencyEdit);
                     })
 
-                    formTaskEdit.addEventListener('submit', () => {
+                    formTaskEdit.addEventListener('submit', (event) => {
                         
+                        event.preventDefault();
+
                         let IDTask = id_task;
 
                         let JSON_task_edit = {
@@ -482,12 +484,14 @@ const showTasks = (divWay) => {
                             frequency : verifyCheckBox(divContainerFrequencyEdit).join(',') || verifyButtonsMonth(divContainerFrequencyEdit).join(',')
                         }
 
+                        console.log(JSON_task_put.frequency);
+
                         fetch('/tasks/put', {
-                            method : 'POST',
+                            method : 'PUT',
                             headers : {'Content-Type' : 'application/json'},
-                            body : JSON.stringify(),
+                            body : JSON.stringify(JSON_task_put),
                         })
-                        .then(response => response.join())
+                        .then(response => response.json())
                         .then(data => {
                             console.log('Tarea Actulizada con exito')
                         })
@@ -781,11 +785,11 @@ const addMonthsTableDiv = (div) => {
 };
 
 //Verificar que CheckBox estan Activos
-const verifyCheckBox = () => {
+const verifyCheckBox = (div) => {
     
     let daysActive = [];
 
-    let divThings = divContainerFrequency.querySelectorAll('input');
+    let divThings = div.querySelectorAll('input');
     
     divThings.forEach(element => {
         if(element.checked){
@@ -797,9 +801,9 @@ const verifyCheckBox = () => {
 };
 
 //Verificar que Buttons estan Activos 
-const verifyButtonsMonth = () => {
+const verifyButtonsMonth = (div) => {
     let daysActive = [];   
-    let buttonsOnDiv = divContainerFrequency.querySelectorAll('button');
+    let buttonsOnDiv = div.querySelectorAll('button');
 
     buttonsOnDiv.forEach(element => {
         if(element.disabled){
