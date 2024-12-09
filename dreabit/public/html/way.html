@@ -18,10 +18,10 @@
         </div>
 
         <dialog id="modal_way_create" class="modal-create-way">
-            <button id="modal_button_cancel_create" class="btn-cancel">CANCELAR</button>
-            
+            <img src="../img/cancel.png" class="icon" id="modal_button_cancel_create">
+            <div class="container">
             <h2 class="modal-title">CREAR CAMINO</h2>
-            <form id="form_way_create" class="form form-create-way">
+            <form id="form_way_create" class="form-create-way">
                 <label for="input_name_way_create">NOMBRE</label>
                 <input type="text" id="input_name_way_create" class="input_way" required>
                 
@@ -30,73 +30,77 @@
 
                 <input type="submit" class="btn-submit">
             </form>
-
+            </div>
         </dialog>
 
         <dialog id="modal_way_edit" class="modal-create-way">
-            <button id="modal_button_cancel_edit" class="btn-cancel">CANCELAR</button>
+            <img src="../img/cancel.png" class="icon" id="modal_button_cancel_edit">
+            <div class="container">
             <h2 class="modal-title">EDITAR CAMINO</h2>
             
-            <form id="form_way_edit"  class="form form-edit-way">
+            <form id="form_way_edit"  class="form-create-way">
                 <label for="input_name_way_edit" class="label">NOMBRE</label>
-                <input type="text" id="input_name_way_edit" class="input_way required">
+                <input type="text" id="input_name_way_edit" class="input_way" required>
                 
                 <label for="input_description_way_edit" class="label">DESCRIPCIÓN</label>
                 <input type="text" id="input_description_way_edit" class="input_way" required>
 
-                <input type="submit" class="btn btn-submit">
+                <input type="submit" class="btn-submit">
             </form>
 
-
+            </div>
         </dialog>
 
-        <dialog id="modal_way_delete" class="modal-delete-way">
+        <dialog id="modal_way_delete" class="modal-create-way">
+            <img src="../img/cancel.png" class="icon" id="no_delete">
+            <div class="column">
             <h2 class="modal-title">ELIMINAR CAMINO</h2>
+            <img src="../img/delete2.png" class="img-delete">
+            </div>
             <button id="yes_delete" class="btn-submit">ACEPTAR</button>
-            <button id="no_delete" class="btn btn-cancel">CANCELAR</button>
         </dialog>
         
         <dialog id="modal_task_create" class="modal-create-task">
+            <img src="../img/cancel.png" class="icon" id="modal_task_cancel">
+            <div class="container">
             <h2 class="modal-title">CREAR TAREA</h2>
             <form id="form_task_create" class="form form-create-task">
 
                 <div class="column">
-                    <label for="task_name_create">NOMBRE</label>
-                    <input type="text" id="task_name_create" class="input_task" required>
-
-                    <label for="task_description_create">DESCRIPCIÓN</label>
-                    <input type="text" id="task_description_create" class="input_task" required>
+                    <input type="text" id="task_name_create" class="input_task" placeholder="Nombre de la tarea" required>
+                    <input type="text" id="task_description_create" class="input_task" placeholder="Descripción de la tarea">
                 </div>
                 
                 <div class="column">
-                    <label for="task_start_time_create" >HORA DE INICIO</label>
+                    <p for="task_start_time_create" >HORA DE INICIO</p>
                     <input type="time" id="task_start_time_create" class="input_task" required>
 
-                    <label for="task_end_time_create">HORA DE FIN</label>
+                    <p for="task_end_time_create">HORA DE FIN</p>
                     <input type="time" id="task_end_time_create" class="input_task" required>
                 </div>
 
                 <div class="column">
                     <select id="frequency" class="input_task">
+                        <option value="" disabled selected>Frecuencia</option>
                         <option value="weekly">Semanal</option>
                         <option value="monthly">Mensual</option>
                     </select>
 
                     <select id="priority" class="input_task">
+                        <option value="" disabled selected>Prioridad</option>
                         <option value="1">Alta</option>
                         <option value="2">Media</option>
                         <option value="3">Baja</option>
                     </select>
                 </div>
 
-                <div id="container_frequency_create">
+                <div id="container_frequency_create" class="frequency">
 
                 </div>
 
                 <input type="submit" class="btn btn-submit">
             </form>
-
-            <button id="modal_task_cancel" class="btn btn-cancel">CANCELAR</button>
+            </div>
         </dialog>
 
         <!-- Pendiente CSS -->

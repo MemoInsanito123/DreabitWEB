@@ -250,6 +250,7 @@ const showWays = (JSON_data) => {
         //-----TAREAS------
         //Boton para crear una Tarea
         let buttonAddTask = document.createElement('button');
+        buttonAddTask.className = 'addTask'
         buttonAddTask.innerHTML = 'Crear Tarea';
         //Funcion para crear Tareas
         buttonAddTask.addEventListener('click', () => {
@@ -667,6 +668,7 @@ const addMonthsTableDiv = (div) => {
     daysMonth.forEach(element => {
         let buttonsDaysMonth = document.createElement('button');
         buttonsDaysMonth.innerHTML = element.toString();
+        buttonsDaysMonth.className = 'DaysMonth';
         
         //Evento para los botones cuando son precionados
         buttonsDaysMonth.addEventListener('click', (event) => {
