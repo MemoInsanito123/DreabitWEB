@@ -110,7 +110,7 @@ INNER JOIN User_Dreabit ON User_Dreabit.email_user = 'dreabit@gmail.com' AND Use
 SELECT User_Dreabit.id_user FROM User_Dreabit WHERE email_user = 'dreabit@gmail.com';
 
 UPDATE Way
-SET name_way = 'Camino Chido'
+SET name_way = 'Camino Ejemplo'
 WHERE id_way = 1;
 
 SELECT Task.id_task, Task.task, Frequency_Task.frequency ,Priority_Task.priority_type FROM Task
