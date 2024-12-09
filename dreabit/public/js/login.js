@@ -20,7 +20,7 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
         return;
     }
 
-    if ( password > 100 ) {
+    if ( password.lenght > 100 ) {
         alert('Por favor ingresa una contraseña válida')
         return;
     }

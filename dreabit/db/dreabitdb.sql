@@ -109,7 +109,7 @@ VALUES
 (2,"kri@gmail.com","1234"),
 (3,"melon@gmail.com","1234");
 
-INSERT INTO Way(id_user, name_way, description_way) VALUES (1, 'Camino1', 'Esto es una camino');
+INSERT INTO Way(id_user, name_way, description_way) VALUES (1, 'Camino1', 'Esto es un camino');
 
 SELECT Way.id_way, Way.name_way, Way.description_way FROM Way
 INNER JOIN User_Dreabit ON User_Dreabit.email_user = 'dreabit@gmail.com' AND User_Dreabit.id_user = Way.id_user;
@@ -117,7 +117,7 @@ INNER JOIN User_Dreabit ON User_Dreabit.email_user = 'dreabit@gmail.com' AND Use
 SELECT User_Dreabit.id_user FROM User_Dreabit WHERE email_user = 'dreabit@gmail.com';
 
 UPDATE Way
-SET name_way = 'Camino Chido'
+SET name_way = 'Camino Ejemplo'
 WHERE id_way = 1;
 
 SELECT Task.id_task, Task.task, Frequency_Days.frequency_days, Frequency_Months.frequency_months ,Priority_Task.priority_type FROM Task
