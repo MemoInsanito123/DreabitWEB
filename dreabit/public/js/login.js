@@ -5,12 +5,31 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
     //Evitar el envio regular del formulario
     event.preventDefault();
 
+    var email = document.getElementById('input_email').value;
+    var password = document.getElementById('input_password').value;
+
+    const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$/;
+
+    if (email === '' || password === '') {
+        alert('Por favor completa todos los campos')
+        return;
+    }
+
+    if ( !regexCorreo.test(email) ) {
+        alert('Por favor, ingresa un correo válido')
+        return;
+    }
+
+    if (password.length > 100 ) {
+        alert('Por favor ingresa una contraseña válida')
+        return;
+    }
+
     //Crear el JSON que se le pasara como parametro al body
     let JSON_LOGIN = {
         email : document.getElementById('input_email').value,
         password : document.getElementById('input_password').value
     };
-
     
     fetch('/sessions/login',{
         method : 'POST',
@@ -21,6 +40,7 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
     })
     .then(response => {
         if (!response.ok) {
+            alert('Email no registrado o Password incorrecta');
             throw new Error('Credenciales incorrectas o error del servidor');
         }
         return response.json();
@@ -30,13 +50,13 @@ const FORM_LOGIN = document.getElementById('form_login').addEventListener('submi
             switch(data.role){
                 case 1 :
                     localStorage.setItem('user', JSON_LOGIN.email);
-                    window.location.href = '/html/client.html';
+                    window.location.href = '/client.html';
                     break;
                 case 2:
-                    window.location.href = '/html/admin.html';
+                    window.location.href = '/admin.html';
                     break;
                 case 3:
-                    window.location.href = '/html/super_admin.html';
+                    window.location.href = '/super_admin.html';
                     break;
             }
         }

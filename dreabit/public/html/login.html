@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Log in</title>
+        <link rel="icon" href="../img/icon.png">
+        <title>Dreabit - Inicio de Sesión</title>
+        <link rel="stylesheet" href="../styles/sesion.css">
     </head>
     <body>
-        <h1>Log in</h1>
+        <div class="container">
+            <a href="index.html"><img src="../img/regresar.png" class="icon"></a>
 
-        <form id="form_login">
-            <label for="input_email">Email</label>
-            <input type="text" id="input_email">
+            <div class="formulario">
+                <img src="../img/icon.png" alt="Logo de Dreabit" class="img_rana">
 
-            <label for="input_email">Password</label>
-            <input type="text" id="input_password">
-            
-            <button id="button_submit">Submit</button>
-        </form>
+                <h2>Log In</h2>
+                    <form  id="form_login" class="name active">
+                        <input type="text" placeholder="Email" required class="inputs" id="input_email">
+                        <input type="password" placeholder="Password" required class="inputs" id="input_password">
+                        
+                        <div class="linea-texto">
+                            o inicia sesión con
+                        </div>
 
-        <a href="./signup.html">Sign up</a>
+                        <img src="../img/google.png" alt="Google" class="btn_google">
 
-        <script src="../js/login.js"></script>
+                        <input type="submit" class="btn_aceptar" value="Aceptar">
+                    </form>
+            </div>
+        </div>
     </body>
+    <script src="../js/login.js"></script>
+
 </html>
