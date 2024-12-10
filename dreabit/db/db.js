@@ -5,7 +5,7 @@ const nameDB = "dreabitdb";
 const db = mysql.createConnection({
     host:'localhost',
     user:'root',
-    password:'n0m3l0',
+    password:'Y00ng!',
     database: nameDB
 });
 

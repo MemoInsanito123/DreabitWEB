@@ -318,11 +318,11 @@ const showWays = (JSON_data) => {
         pWaysDescriptions.innerHTML = description_way;
     
         //Agregar los elementos al div de Camino
-        divWays.appendChild(h2WaysNames);
-        divWays.appendChild(pWaysDescriptions);
         divWays.appendChild(buttonDeleteWay);
         divWays.appendChild(buttonEditWay);
         divWays.appendChild(buttonAddTask);
+        divWays.appendChild(h2WaysNames);
+        divWays.appendChild(pWaysDescriptions);
 
         showTasks(divWays);
 

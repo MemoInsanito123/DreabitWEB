@@ -4,14 +4,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Way</title>
-
+        <link rel="stylesheet" href="../styles/header.css">
         <link rel="stylesheet" href="../styles/task.css">
         <link rel="stylesheet" href="../styles/way.css">
+        <link rel="stylesheet" href="../styles/menu.css">
     </head>
     <body>
-
+        <div id="menu-container"></div>
+        <div id="menu-container2"></div>
         <button id="add_way" class="btn btn-add-way">Agregar Camino</button>
-
 
         <div id="container" class="container-main" >
 
@@ -103,52 +104,55 @@
             </div>
         </dialog>
 
-        <!-- Pendiente CSS -->
-        <dialog id="modal_task_edit" >
-            <h2>Editar Tarea</h2>
-            <form id="form_task_edit">
+        <dialog id="modal_task_edit" class="modal-create-task">
+            <img src="../img/cancel.png" class="icon"  id="modal_task_cancel_edit">
+            <div class="container">
+                <h2>Editar Tarea</h2>
+                <form id="form_task_edit" class="form form-create-task">
+                    <div class="column">
+                        <input type="text" id="task_name_edit" class="input_task" placeholder="Nombre de la tarea" required>
+                        <input type="text" id="task_description_edit" class="input_task" placeholder="Descripción de la tarea" required>
+                    </div>
+                    <div class="column">
+                        <p for="task_start_time_edit">Hora de Inicio</p>
+                        <input type="time" id="task_start_time_edit" class="input_task" required>
+                        <p for="task_end_time_edit">Hora de Fin</p>
+                        <input type="time" id="task_end_time_edit" class="input_task" required>
+                    </div>
+                    <div class="column">
+                        <select id="frequency_edit" class="input_task">
+                            <option value="" disabled selected>Frecuencia</option>
+                            <option value="weekly">Semanal</option>
+                            <option value="monthly">Mensual</option>
+                        </select>
+                            
+                        <select id="priority_edit" class="input_task">
+                            <option value="1">Alta</option>
+                            <option value="2">Media</option>
+                            <option value="3">Baja</option>
+                        </select>
+                    </div>
+                    
+                    <div id="container_frequency_edit" class="frequency">
+                    </div>
 
-                <label for="task_name_edit">Nombre</label>
-                <input type="text" id="task_name_edit">
-
-                <label for="task_description_edit">Descripcion</label>
-                <input type="text" id="task_description_edit">
-
-                <label for="task_start_time_edit">Hora de Inicio</label>
-                <input type="time" id="task_start_time_edit">
-
-                <label for="task_end_time_edit">Hora de Fin</label>
-                <input type="time" id="task_end_time_edit">
-                
-                <select id="frequency_edit">
-                    <option value="weekly">Semanal</option>
-                    <option value="monthly">Mensual</option>
-                </select>
-
-                <div id="container_frequency_edit">
-                </div>
-
-                <select id="priority_edit">
-                    <option value="1">Alta</option>
-                    <option value="2">Media</option>
-                    <option value="3">Baja</option>
-                </select>
-
-                <input type="submit">
-            </form>
-
-            <button id="modal_task_cancel_edit">Cancelar</button>
+                    <input type="submit" class="btn-submit">
+                </form>
+            </div>
         </dialog>
         
-        <dialog id="modal_task_delete">
-            <h2>Eliminar Tarea</h2>
-            <button id="yes_delete_task">Aceptar</button>
-            <button id="no_delete_task">Cancelar</button>
+        <dialog id="modal_task_delete" class="modal-create-way">
+            <img src="../img/cancel.png" class="icon" id="no_delete_task">
+            <div class="column">
+                <h2>Eliminar Tarea</h2>
+                <img src="../img/delete2.png" class="img-delete">
+            </div>
+            <button id="yes_delete_task" class="btn-submit">Aceptar</button>
         </dialog>
-        
-
     </body>
 
     <script src="../js/wayScript.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/menu.js"></script>
     <!-- <script src="../js/wayValidations.js"></script> -->
 </html>
