@@ -11,12 +11,13 @@
     <body>
 
         <button id="add_way" class="btn btn-add-way">Agregar Camino</button>
-
+        
 
         <div id="container" class="container-main" >
 
         </div>
 
+        <!-- Modals for Ways -->
         <dialog id="modal_way_create" class="modal-create-way">
             <img src="../img/cancel.png" class="icon" id="modal_button_cancel_create">
             <div class="container">
@@ -60,6 +61,7 @@
             <button id="yes_delete" class="btn-submit">ACEPTAR</button>
         </dialog>
         
+        <!-- Modals for Task -->
         <dialog id="modal_task_create" class="modal-create-task">
             <img src="../img/cancel.png" class="icon" id="modal_task_cancel">
             <div class="container">
@@ -102,8 +104,7 @@
             </form>
             </div>
         </dialog>
-
-        <!-- Pendiente CSS -->
+        
         <dialog id="modal_task_edit" >
             <h2>Editar Tarea</h2>
             <form id="form_task_edit">
@@ -141,11 +142,47 @@
         </dialog>
         
         <dialog id="modal_task_delete">
-            <h2>Eliminar Tarea</h2>
-            <button id="yes_delete_task">Aceptar</button>
-            <button id="no_delete_task">Cancelar</button>
+            <h2>ELIMINAR TAREA</h2>
+            <button id="yes_delete_task">ACEPTAR</button>
+            <button id="no_delete_task">CANCELAR</button>
+        </dialog>
+
+        <!-- Modals for Sub Task -->
+        <dialog id="modal_sub_task_create">
+            <h2>CREAR SUB-TAREA</h2>
+            <form id="form_sub_task_create">
+                <label for="name_sub_task_create">NOMBRE</label>
+                <input type="text" id="name_sub_task_create" required>
+                
+                <label for="description_task_create">DESCRIPCION</label>
+                <input type="text" id="description_task_create" required>
+
+                <input type="submit">
+            </form>
+
+            <button id="modal_sub_task_cancel_create">CANCELAR</button>
+        </dialog>
+
+        <dialog id="modal_sub_task_edit">
+            <h2>EDITAR SUB-TAREA</h2>
+            <form id="form_sub_task_edit">
+                <label for="name_sub_task_edit">NOMBRE</label>
+                <input type="text" id="name_sub_task_edit" required>
+                
+                <label for="description_task_create">DESCRIPCION</label>
+                <input type="text" id="description_task_edit" required>
+
+                <input type="submit">
+            </form>
+
+            <button id="modal_sub_task_cancel_edit">CANCELAR</button>
         </dialog>
         
+        <dialog id="modal_sub_task_delete">
+            <h2>ELIMINAR SUB-TAREA</h2>
+            <button id="yes_delete_sub_task">ACEPTAR</button>
+            <button id="no_delete_sub_task">CANCELAR</button>
+        </dialog>
 
     </body>
 

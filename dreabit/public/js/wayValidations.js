@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const Invalidar = /[^a-zA-Z0-9ñÑ\s]/g;
             input.value = input.value.replace(Invalidar, '');
         });
-    });
+});
 
     // Validación para las horas
     const timeInputs = document.querySelectorAll('input[type="time"]');

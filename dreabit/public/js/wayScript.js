@@ -11,6 +11,11 @@ const modalTaskCreate = document.getElementById('modal_task_create');
 const modalTaskEdit = document.getElementById('modal_task_edit');
 const modalTaskDelete = document.getElementById('modal_task_delete');
 
+//Modales de SubTask
+const modalSubTaskCreate = document.getElementById('modal_sub_task_create');
+const modalSubTaskEdit = document.getElementById('modal_sub_task_edit');
+const modalSubTaskDelete = document.getElementById('modal_sub_task_delete');
+
 //Formularios de Way
 const formWayCreate = document.getElementById('form_way_create');
 const formWayEdit = document.getElementById('form_way_edit');
@@ -18,8 +23,10 @@ const formWayEdit = document.getElementById('form_way_edit');
 //Formularios de Task
 const formTaskCreate = document.getElementById('form_task_create');
 const formTaskEdit = document.getElementById('form_task_edit');
-const formTaskDelete = document.getElementById('form_task_delete');
 
+//Formularios de SubTask
+const formSubTaskCreate = document.getElementById('form_sub_task_create');
+const formSubTaskEdit = document.getElementById('form_sub_task_edit');
 
 //Botones de Way
 const buttonCreateWay = document.getElementById('add_way');
@@ -33,10 +40,17 @@ const buttonCancelTaskCreate = document.getElementById('modal_task_cancel');
 const buttonCancelTaskEdit = document.getElementById('modal_task_cancel_edit');
 const buttonCancelTaskDelete = document.getElementById('no_delete_task');
 
+//Botones de SubTask
+const buttonCancelSubTaskCreate = document.getElementById('modal_sub_task_cancel_create');
+const buttonCancelSubTaskEdit = document.getElementById('modal_sub_task_cancel_edit');
+const buttonCancelSubTaskDelete = document.getElementById('no_delete_sub_task');
+
 //Eliminar Way
 const deleteYes = document.getElementById('yes_delete');
 //Eliminar Task
 const deleteYesTask = document.getElementById('yes_delete_task');
+//Eliminar SubTask
+const deleteYesSubTask = document.getElementById('yes_delete_sub_task');
 
 //Contenedor general
 const divContainer = document.getElementById('container');
@@ -67,32 +81,65 @@ buttonCreateWay.addEventListener('click', () => {
 //Boton para cancelar el modal Create Way
 buttonCancelWayCrete.addEventListener('click', () => {
     modalWayCreate.close();
+    //Recargar la pagina
+    location.reload();
 });
 
 //Boton para cancelar el modal Edit Way
 buttonCancelWayEdit.addEventListener('click', () => {
     modalWayEdit.close();
+    //Recargar la pagina
+    location.reload();
 });
 
 //Boton para cancelar el modal Delete Way
 buttonCancelWayDelete.addEventListener('click', () => {
     modalWayDelete.close();
+    //Recargar la pagina
+    location.reload();
 });
 
 //Boton para cancelar el modal de Create Task
 buttonCancelTaskCreate.addEventListener('click', () => {
     modalTaskCreate.close();
+    //Recargar la pagina
+    location.reload();
 });
 
-//Boton para cancelat el modal de Delete Task
+//Boton para cancelar el modal de Edit Task
 buttonCancelTaskEdit.addEventListener('click', () => {
     modalTaskEdit.close();
+    //Recargar la pagina
+    location.reload();
 });
 
+//Boton para cancelar el modal de Delete Task
 buttonCancelTaskDelete.addEventListener('click', () => {
     modalTaskDelete.close();
+    //Recargar la pagina
+    location.reload();
 });
 
+//Boton para cancelar el modal de Create SubTask
+buttonCancelSubTaskCreate.addEventListener('click', () => {
+    modalSubTaskCreate.close();
+    //Recargar la pagina
+    location.reload();
+});
+
+//Boton para cancelar el modal de Edit SubTask
+buttonCancelSubTaskEdit.addEventListener('click', () => {
+    modalSubTaskEdit.close();
+    //Recargar la pagina
+    location.reload();
+});
+
+//Boton para cancelar el modal de Delete SubTask
+buttonCancelSubTaskDelete.addEventListener('click', () => {
+    modalSubTaskDelete.close();
+    //Recargar la pagina
+    location.reload();
+});
 
 //Funcion para ejecutar la llamada al fetch de GET que retorna en la data los caminos dependiendo de la sesion del usuario
 const fetchWaysGET = () => {
@@ -178,6 +225,9 @@ const showWays = (JSON_data) => {
         //Div para el camino
         let divWays = document.createElement('div');
         divWays.className = 'way';
+
+        //Agregar un identificador para ubicar el divWay para posteriormente agregar las tareas en el div correspondiente
+        divWays.id = id_way.toString();
     
         //------BOTONES WAY------
         //Boton para eliminar el camino
@@ -324,41 +374,43 @@ const showWays = (JSON_data) => {
         divWays.appendChild(buttonEditWay);
         divWays.appendChild(buttonAddTask);
 
-        showTasks(divWays);
+        //Agregar las Tareas al contenedor div y pasamos su identificador 
+        showTasks(divWays, id_way);
 
         //Agregar el div de camino al Contenedor principal
         divContainer.appendChild(divWays);
     });
 };
 
-//Mostrar las tareas en el DOM le pasamos como parametro el divWay para agregarlo al mismo camino
-const showTasks = (divWay) => {
+//Mostrar las tareas en el DOM le pasamos como parametro el divWay y el IDWay para agregarlo al mismo camino
+const showTasks = (divWay, IDWay) => {
     //Obtemos el ID del Usuario mediante el correo electronico almacenado en el LocalStorage
-    fetch('/sessions/getID' , {
-        method : 'POST',
-        headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify({email : localStorage.getItem('user') || 'dreabit@gmail.com'})
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        let idUser;
-        //Iteramos el argumento data que forzosamente tiene longitud 1
-        data.forEach(element => {
-            idUser = element.id_user;
-        });
+    // fetch('/sessions/getID' , {
+    //     method : 'POST',
+    //     headers : {'Content-Type' : 'application/json'},
+    //     body : JSON.stringify({email : localStorage.getItem('user') || 'dreabit@gmail.com'})
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data);
+    //     let idUser;
+    //     //Iteramos el argumento data que forzosamente tiene longitud 1
+    //     data.forEach(element => {
+    //         idUser = element.id_user;
+    //     });
 
-        //Obtener las tareas mediante el ID de usuario
-        fetch('/tasks/get', {
+        //ANTES LO HACIAMOS DE ESTA FORMA, pero era inecesaria: Obtener las tareas mediante el ID de usuario
+        //AHORA LO HACEMOS mediante el ID del camino
+        fetch('/tasks/getIDWay', {
             method : 'POST',
             headers : {'Content-Type' : 'application/json'},
-            body : JSON.stringify({id_user : idUser})
+            body : JSON.stringify({id_way_db : IDWay})
         })
         .then(response => response.json())
         .then(data => {
             data.forEach(element => {
                 //Desestruturar la informacion del elemento que iteramos
-                let {id_task, task, frequency, priority_type} = element;
+                let {id_way, id_task, task, frequency, priority_type} = element;
 
                 //Cambiar la prioridad
                 switch(priority_type){
@@ -401,6 +453,8 @@ const showTasks = (divWay) => {
                 const imgDeleteButton = document.createElement('img');
                 imgDeleteButton.classList.add('icon');
                 imgDeleteButton.src = '../img/delete.png';
+                imgDeleteButton.alt = 'Eliminar Task';
+
                 //Agregar la imagen al boton
                 deleteButton.appendChild(imgDeleteButton);
 
@@ -449,6 +503,8 @@ const showTasks = (divWay) => {
                 const imgEditButton = document.createElement('img');
                 imgEditButton.classList.add('icon');
                 imgEditButton.src = '../img/edit.png';
+                imgEditButton.alt = 'Editar Task';
+
                 //Agregar la imagen al boton
                 editButton.appendChild(imgEditButton);
 
@@ -502,13 +558,49 @@ const showTasks = (divWay) => {
 
                 });
 
+                //Boton para crear una SUBTAREA
                 const addButton = document.createElement('button');
                 addButton.classList.add('add-button');
+
+                //Agregar un funcion al boton para crear una Subtarea
+                addButton.addEventListener('click', () => {
+                    //Mostrar el modal de crear SubTarea
+                    modalSubTaskCreate.showModal();
+
+                    //Evento para cuando el formulario de Subtarea se envia
+                    formSubTaskCreate.addEventListener('submit', (event) => {
+
+                        //Evitar que el formulario recargue la pagina (TEST)
+                        //event.preventDefault();
+
+                        let JSON_SUBTASK = {
+                            id_task_db : id_task,
+                            name_sub_task : document.getElementById('name_sub_task_create').value,
+                            description_sub_task : document.getElementById('description_task_create').value
+                        };
+
+                        //Llamamos al fetch para hacer la insercion en la BD
+                        fetch('/tasks/post/subtask', {
+                            method : 'POST',
+                            headers : {'Content-Type' : 'application/json'},
+                            body : JSON.stringify(JSON_SUBTASK)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('SubTarea registrada con exito');
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                    });
+
+                });
 
                 //Imagen del boton editar
                 const imgAddButton = document.createElement('img');
                 imgAddButton.classList.add('icon');
                 imgAddButton.src = '../img/add.png';
+                imgAddButton.alt = 'Agregar SubTask';
                 //Agregar la imagen al boton
                 addButton.appendChild(imgAddButton);
 
@@ -557,7 +649,7 @@ const showTasks = (divWay) => {
                 const frequencyData = document.createElement('div');
                 frequencyData.classList.add('frequency-data');
 
-                //Mediante la frecuencia final
+                //Mediante la frecuencia final modificar su contenido para que sea mas explicito
                 frequency_final.forEach(element => {
                     let spanData = document.createElement('span');
                     switch(element) {
@@ -588,7 +680,7 @@ const showTasks = (divWay) => {
                     frequencyData.appendChild(spanData);
                 });
 
-                
+                //Esto es para verificar mediante una expresion regular que es lo que contiene el campo frequency, ya sea unicamente numeros o letras. En caso de ser solo letras y que su longitud sea igual a 14 es diariamente 
                 if(/^[a-zA-Z,]+$/.test(frequency) && frequency.length === 14){
                     frequencyDIV.innerHTML = `
                     <span>Frecuencia: </span>
@@ -608,34 +700,142 @@ const showTasks = (divWay) => {
                     `;  
                 }
 
+                //Contenedor para la prioridad
                 const priority = document.createElement('div');
                 priority.classList.add('priority');
                 priority.innerHTML = `
                     <span>Prioridad: </span>
                     <span class="priority-value">${priority_type}</span>
                 `;
-
+                //Agregar todos los contenedores al contenedor de TaskDetails
                 taskDetails.appendChild(frequencyDIV);
                 taskDetails.appendChild(frequencyData);
                 taskDetails.appendChild(priority);
+
+                //Crear un contenedor para las Subtareas
+                const subTaskContainer = document.createElement('div');
+
+                //LLamamos la funcion que imprime las subTareas si es que hay
+                showSubTask(subTaskContainer, id_task);
+
 
                 // Agregar todos los elementos al contenedor principal
                 taskCard.appendChild(taskHeader);
                 taskCard.appendChild(taskTime);
                 taskCard.appendChild(taskDescription);
                 taskCard.appendChild(taskDetails);
+                taskCard.appendChild(subTaskContainer);
 
                 // Agregar al DOM
-                divWay.appendChild(taskCard);
-
+                //Solo si el ID_way que obtenemos con el metodo POST y que le corresponde a la tarea es igual con el ID del Div al que se esta agregando 
+                if(id_way === IDWay){
+                    divWay.appendChild(taskCard);
+                }
             })
         })
         .catch(err => {
             console.error(err);
         })
+//    }
+//     )
+//     .catch(err => {
+//         console.error(err);
+//     })
+};
+
+//Mostrar las Sub-Tareas en el DOM le pasamos como parametro el divSubTask y el IDTask para agregarlo a la misma Tarea
+const showSubTask = (divSubTask, IDTask) => {
+
+    //Obtener la informacion mediante las Sub Tareas
+    fetch('tasks/get/subtask', {
+        method : 'POST',
+        headers : {'Content-Type' : 'application/json'},
+        body: JSON.stringify({id_task_db : IDTask}),
     })
-    .catch(err => {
-        console.error(err);
+    .then(response => response.json())
+    .then(data => {
+        //Iteramos las SubTareas que se almacenan en un array
+        data.forEach(element => {
+            //Desestructuramos el Array que esta contenido en element
+            let {id_task, id_sub_task, name_sub_task, description_sub_task} = element;
+
+            // Crear el contenedor de subtareas
+            const subtasksDiv = document.createElement('div');
+            subtasksDiv.classList.add('subtasks');
+
+            // Crear el encabezado de la subtarea
+            const subtaskHeaderDiv = document.createElement('div');
+            subtaskHeaderDiv.classList.add('subtask-header');
+
+            // Crear el contenedor para el botón de eliminación
+            const deleteContainerDiv = document.createElement('div');
+            deleteContainerDiv.classList.add('delete-container-task');
+
+            // Crear el botón de eliminación
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+
+            // Agregar el ícono al botón de eliminación
+            const deleteIcon = document.createElement('img');
+            deleteIcon.src = '../img/delete.png';
+            deleteIcon.classList.add('icon');
+            deleteButton.appendChild(deleteIcon);
+
+            // Agregar el botón de eliminación al contenedor
+            deleteContainerDiv.appendChild(deleteButton);
+
+            // Crear el título de la subtarea
+            const subtaskTitle = document.createElement('h3');
+            subtaskTitle.textContent = name_sub_task;
+
+            // Crear el contenedor de acciones
+            const actionsDiv = document.createElement('div');
+            actionsDiv.classList.add('actions');
+
+            // Crear el botón de edición
+            const editButton = document.createElement('button');
+            editButton.classList.add('edit-button');
+
+            //Agregamos el evento para editar la SubTarea
+            editButton.addEventListener('click', () => {
+                modalSubTaskEdit.showModal();
+            });
+
+            // Agregar el ícono al botón de edición
+            const editIcon = document.createElement('img');
+            editIcon.src = '../img/edit.png';
+            editIcon.classList.add('icon');
+            editButton.appendChild(editIcon);
+
+            // Agregar los botones al contenedor de acciones
+            actionsDiv.appendChild(editButton);
+
+            // Agregar los elementos al encabezado de la subtarea
+            subtaskHeaderDiv.appendChild(deleteContainerDiv);
+            subtaskHeaderDiv.appendChild(subtaskTitle);
+            subtaskHeaderDiv.appendChild(actionsDiv);
+
+            // Crear la descripción de la subtarea
+            const subtaskDescriptionDiv = document.createElement('div');
+            subtaskDescriptionDiv.classList.add('subtask-description');
+
+            // Crear el párrafo de descripción
+            const subtaskDescriptionText = document.createElement('p');
+            subtaskDescriptionText.textContent = description_sub_task;
+
+            // Agregar el texto de descripción al contenedor
+            subtaskDescriptionDiv.appendChild(subtaskDescriptionText);
+
+            // Agregar el encabezado y la descripción al contenedor principal de subtareas
+            subtasksDiv.appendChild(subtaskHeaderDiv);
+            subtasksDiv.appendChild(subtaskDescriptionDiv);
+
+            //Verificar el ID de la Subtarea que se desestruturo de la respuesta del metodo de la BD sea igual al ID de referencia del Div de la tarea 
+            if(id_task === IDTask){
+                // Agregar el contenedor de subtareas al documento
+                divSubTask.appendChild(subtasksDiv);
+            }
+        });
     })
 };
 
