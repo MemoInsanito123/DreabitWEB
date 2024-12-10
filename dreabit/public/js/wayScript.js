@@ -466,7 +466,7 @@ const showTasks = (divWay) => {
 
                     formTaskEdit.addEventListener('submit', (event) => {
                         
-                        event.preventDefault();
+                        //event.preventDefault();
 
                         let IDTask = id_task;
 
