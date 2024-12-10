@@ -4,9 +4,16 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    margin: 0;
+    margin-top: 100px;
+    margin-left: 100px;
     font-family: 'Lato', sans-serif;
     color: #333333;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.page {
+    display: flex;
 }
 
 .container {
@@ -15,10 +22,11 @@ body {
     justify-items: left;
     text-align: left;
     align-items: flex-start;
-    margin: 0%;
+    margin-left: 100px;
 }
 
 .btn-add-way {
+    margin-left: 100px;
     background: linear-gradient(to right, #c63d85, #fdb9ff);
     border: 5px solid #333333;
     border-radius: 50px;
@@ -197,17 +205,28 @@ pWaysDescriptions p {
 }
 
 .deleteWay, .editWay, .addTask {
-    background: linear-gradient(to right, #55aaec, #4ad59c, #187158);
-    border: 2px solid #333333;
+    background: none;
+    border: 2px solid #e1e1e1;
     border-radius: 50px;
     padding: 10px 20px;
     margin: 10px;
     font-family: 'Poppins', sans-serif;
+    font-weight: bold;
     font-size: 16px;
     cursor: pointer;
-    color: #333333;
+    color: #e1e1e1;
     text-transform: uppercase;
     transition: transform 0.2s;
+}
+
+.editWay:hover, .addTask:hover {
+    background: #00bf93;
+    color: #333;
+}
+
+.deleteWay:hover {
+    background: #f44336;
+    color: #333;
 }
 
 /* Utility Classes */
