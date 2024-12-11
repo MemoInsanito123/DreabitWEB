@@ -9,7 +9,7 @@ const buttonLogout = document.getElementById('button_logout')
 //Funcion para verificar si hay una sesion activa
 const verifySession = () => {
     if(!localStorage.getItem('user')){
-        window.location.href = '/login.html'
+        window.location.href = '/index.html'
     }
 };
 
