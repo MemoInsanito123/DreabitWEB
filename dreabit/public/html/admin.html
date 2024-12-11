@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>admin</title>
-    </head>
-    <body>
-        <h1>ADMIN</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <form id="client-form">
+        <label for="client-id">Enter Client ID:</label>
+        <input type="number" id="client-id" name="client-id" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="client-data" style="display: none;">
+        <h2>Client Data</h2>
+        <p id="client-info"></p>
+        <button id="update-client">Update Client</button>
+        <button id="delete-client">Delete Client</button>
+    </div>
+    <script src="../js/admin.js"></script>
+</body>
 </html>
