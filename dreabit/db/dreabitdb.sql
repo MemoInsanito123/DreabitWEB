@@ -76,7 +76,22 @@ date_complete DATE,
 FOREIGN KEY(id_task) REFERENCES Task(id_task)
 );
 
+CREATE TABLE IF NOT EXISTS Date_Task(
+id_task_date INTEGER PRIMARY KEY AUTO_INCREMENT,
+id_task INTEGER NOT NULL,
+start_date_task DATE,
 
+FOREIGN KEY (id_task) REFERENCES Task(id_task)
+);
+
+CREATE TABLE IF NOT EXISTS Sub_task(
+id_sub_task INTEGER PRIMARY KEY AUTO_INCREMENT,
+id_task INTEGER NOT NULL,
+name_sub_task VARCHAR(150),
+description_sub_task VARCHAR(200),
+
+FOREIGN KEY (id_task) REFERENCES Task(id_task)
+);
 
 -- INSERT FOR THE TABLE (CATALOG)
 
@@ -92,6 +107,8 @@ SELECT * FROM Way;
 SELECT * FROM Task;
 SELECT * FROM Frequency_Task;
 SELECT * FROM Priority_Task;
+SELECT * FROM Date_Task;
+SELECT * FROM Sub_task;
 
 -- TESTS THE MOST INSANES
 INSERT INTO User_Dreabit (id_user_type, email_user, password_user)
@@ -110,7 +127,7 @@ INNER JOIN User_Dreabit ON User_Dreabit.email_user = 'dreabit@gmail.com' AND Use
 SELECT User_Dreabit.id_user FROM User_Dreabit WHERE email_user = 'dreabit@gmail.com';
 
 UPDATE Way
-SET name_way = 'Camino Ejemplo'
+SET name_way = 'Camino Chido'
 WHERE id_way = 1;
 
 SELECT Task.id_task, Task.task, Frequency_Task.frequency ,Priority_Task.priority_type FROM Task
@@ -126,4 +143,18 @@ ORDER BY
         WHEN Priority_Task.priority_type = 'Low' THEN 3
         ELSE 4
     END;
+
+SELECT Way.id_way, Task.id_task, Task.task, Frequency_Task.frequency ,Priority_Task.priority_type FROM Task
+INNER JOIN Frequency_Task ON Frequency_Task.id_task = Task.id_task
+INNER JOIN Priority_Task ON Priority_Task.id_priority = Task.id_priority
+INNER JOIN Way ON Way.id_way = Task.id_way
+WHERE Way.id_way = 3
+ORDER BY 
+    CASE 
+        WHEN Priority_Task.priority_type = 'High' THEN 1
+        WHEN Priority_Task.priority_type = 'Medium' THEN 2
+        WHEN Priority_Task.priority_type = 'Low' THEN 3
+        ELSE 4
+    END;
     
+SELECT id_sub_task, name_sub_task, description_sub_task FROM Sub_Task WHERE id_task = 1;

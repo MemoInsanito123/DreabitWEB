@@ -225,10 +225,13 @@ const showWays = (JSON_data) => {
         //Div para el camino
         let divWays = document.createElement('div');
         divWays.className = 'way';
-
         //Agregar un identificador para ubicar el divWay para posteriormente agregar las tareas en el div correspondiente
         divWays.id = id_way.toString();
-    
+
+        //Div que me pidio J para su CSS, que es un Div que contiene todas las tareas
+        let divTasksJ = document.createElement('div');
+        divTasksJ.className = 'container-task';
+
         //------BOTONES WAY------
         //Boton para eliminar el camino
         let buttonDeleteWay = document.createElement('button');
@@ -373,9 +376,10 @@ const showWays = (JSON_data) => {
         divWays.appendChild(buttonAddTask);
         divWays.appendChild(h2WaysNames);
         divWays.appendChild(pWaysDescriptions);
+        divWays.appendChild(divTasksJ);
 
         //Agregar las Tareas al contenedor div y pasamos su identificador 
-        showTasks(divWays, id_way);
+        showTasks(divTasksJ, id_way);
 
         //Agregar el div de camino al Contenedor principal
         divContainer.appendChild(divWays);
