@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 const userRegex2 = /[a-zA-ZÁÉÍÓÚáéíóúÜüÑñ]/;
 
                 // Campos vacíos
-                if (username === '' || name === '' || paterno === '' || materno === '') {
+                if (username === '' || name === '') {
                     alert('Por favor completa todos los campos');
                     return;
                 }
@@ -121,10 +121,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Apellidos
-                if (!nameRegex.test(paterno) || !nameRegex.test(materno)) {
-                    alert('Por favor ingresa un apellido válido')
-                    return;
-                }
+                // if (!nameRegex.test(paterno) || !nameRegex.test(materno)) {
+                //     alert('Por favor ingresa un apellido válido')
+                //     return;
+                // }
 
                 if (paterno.length > 100 || materno.length > 100) {
                     alert('Los apellidos deben tener menos de 100 caracteres')
@@ -201,13 +201,115 @@ window.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // Mensaje temporal para confirmar que si termino
-                alert('Registro completado exitosamente.');
+                //Mes nacimiento
+                let mesNacimiento = document.getElementById('mes').value;
+                switch(mesNacimiento){
+                    case '1':
+                        mesNacimiento = '01';
+                        break;
+                    case '2':
+                        mesNacimiento = '02';
+                        break;
+                    case '3':
+                        mesNacimiento = '03';
+                        break;
+                    case '4':
+                        mesNacimiento = '04';
+                        break;
+                    case '5':
+                        mesNacimiento = '05';
+                        break;
+                    case '6':
+                        mesNacimiento = '06';
+                        break;
+                    case '7':
+                        mesNacimiento = '07';
+                        break;
+                    case '8':
+                        mesNacimiento = '08';
+                        break;
+                    case '9':
+                        mesNacimiento = '09';
+                        break;
+                }
+
+                //Dia nacimiento
+                let diaNacimiento = document.getElementById('dia').value;
+                switch(diaNacimiento) {
+                    case '1':
+                        diaNacimiento = '01';
+                        break;
+                    case '2':
+                        diaNacimiento = '02';
+                        break;
+                    case '3':
+                        diaNacimiento = '03';
+                        break;
+                    case '4':
+                        diaNacimiento = '04';
+                        break;
+                    case '5':
+                        diaNacimiento = '05';
+                        break;
+                    case '6':
+                        diaNacimiento = '06';
+                        break;
+                    case '7':
+                        diaNacimiento = '07';
+                        break;
+                    case '8':
+                        diaNacimiento = '08';
+                        break;
+                    case '9':
+                        diaNacimiento = '09';
+                        break;
+                }
+
+                let JSON_data_signup = {
+                    name_user : document.getElementById('name').value,
+                    maternal_surname : document.getElementById('materno').value,
+                    paternal_surname : document.getElementById('paterno').value,
+                    username : document.getElementById('username').value,
+                    email : document.getElementById('email').value,
+                    password : document.getElementById('password').value,
+                    birthdate : document.getElementById('anio').value + '-' + mesNacimiento + '-' + diaNacimiento,
+                    type : 1,
+                }
+
+                //Campos no llenados en apellido materno y apellido paterno
+                if(JSON_data_signup.apellidom === ''){
+                    JSON_data_signup.apellidom = null;
+                }
+                
+                if(JSON_data_signup.apellidop === ''){
+                    JSON_data_signup.apellidop = null;
+                }
+
+                console.log(JSON_data_signup);
+                signupUser(JSON_data_signup);
+
                 return;
             }
-               
             currentForm.classList.remove('active');                                 // Ocultar el formulario actual
             document.querySelector(`.${nextFormClass}`).classList.add('active');    // Mostrar el siguiente                    
         });
     });
 });
+
+//Funcion para registrar el usuario
+const signupUser = (JSON_info) => {
+    fetch('/sessions/signup', {
+        method : 'POST',
+        headers : {'Content-Type' : 'application/json'},
+        body : JSON.stringify(JSON_info),
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Usuario Registrado con Exito');
+        location.href = '/login.html';
+    })
+    .catch(err => {
+        alert('Correo o Username en uso');
+        location.reload();
+    })
+};

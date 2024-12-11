@@ -5,7 +5,7 @@ USE dreabitdb;
 
 CREATE TABLE IF NOT EXISTS User_Type(
 id_user_type INTEGER PRIMARY KEY AUTO_INCREMENT,
-name_type VARCHAR(15) NOT NULL
+name_type VARCHAR(15) NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS User_Dreabit(
@@ -22,7 +22,6 @@ id_user INTEGER NOT NULL,
 name_user VARCHAR(100) NOT NULL,
 paternal_surname VARCHAR(100),
 maternal_surname VARCHAR(100),
-handle VARCHAR(25) UNIQUE NOT NULL,
 
 FOREIGN KEY(id_user) REFERENCES User_Dreabit(id_user)
 );
@@ -31,6 +30,15 @@ CREATE TABLE IF NOT EXISTS User_Birthdate(
 id_user_birthdate INTEGER PRIMARY KEY AUTO_INCREMENT,
 id_user INTEGER NOT NULL,
 birthdate DATE NOT NULL,
+
+FOREIGN KEY(id_user) REFERENCES User_Dreabit(id_user)
+);
+
+CREATE TABLE IF NOT EXISTS User_Profile(
+id_user_profile INTEGER PRIMARY KEY AUTO_INCREMENT,
+id_user INTEGER NOT NULL,
+username VARCHAR(150) NOT NULL,
+img_profile LONGTEXT,
 
 FOREIGN KEY(id_user) REFERENCES User_Dreabit(id_user)
 );
@@ -94,9 +102,7 @@ FOREIGN KEY (id_task) REFERENCES Task(id_task)
 );
 
 -- INSERT FOR THE TABLE (CATALOG)
-
 INSERT INTO User_Type(name_type) VALUES ('client'), ('admin'), ('superadmin');
-
 INSERT INTO Priority_Task(priority_type) VALUES ('high'), ('medium'), ('low');
 
 -- SELECT FOR THE TABLES

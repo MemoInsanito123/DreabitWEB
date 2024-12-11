@@ -5,7 +5,7 @@ const db = require('../db/db');
 //Registrar una Tarea a la base de datos
 router.post("/post", (req, res) => {
     db.beginTransaction(err => {
-        if(err) return res.status(500).send('Error al iniciar la transaccion');
+        if(err) return db.rollback(() => res.status(500).send('Error al iniciar la transaccion'));
 
         const {id_way_db, priority, task} = req.body;
         const queryTask = 'INSERT INTO Task(id_way, id_priority, task) VALUES (?,?,?)';
