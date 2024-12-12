@@ -5,6 +5,7 @@ const db = require('./db/db.js');
 const sessionsRoutes = require('./methods/User_Dreabit.js');
 const waysRoutes = require('./methods/Way.js');
 const tasksRoutes = require('./methods/Task.js');
+const superadminRoutes = require('./methods/SuperAdmin.js');
 
 const path = require('path');
 
@@ -97,6 +98,7 @@ app.put("/api/clients/:id", (req, res) => {
 app.use('/sessions', sessionsRoutes);
 app.use('/ways', waysRoutes);
 app.use('/tasks', tasksRoutes);
+app.use('/superadmin', superadminRoutes);
 
 // Servir archivos estáticos html
 app.use(express.static('public'));
