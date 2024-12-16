@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>super_admin</title>
-    </head>
-    <body>
-        <h1>SUPER ADMIN</h1>
-    </body>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Administrador</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+</head>
+
+<body>
+    <div>
+        <h2>Agregar Admin</h2>
+
+        <form id="agregarAdmin" method="post">
+            <label>Correo:</label><br>
+            <input id="email" type="text" name="email" placeholder="Correo">
+
+            <label>Contraseña:</label><br>
+            <input id="password" type="text" name="password" placeholder="Contraseña">
+
+            <input type="submit" id="agregar_btn" value="Aceptar">
+
+        </form>
+    </div>
+
+    <div>
+        <h2>Actualizar Admin</h2>
+
+        <form id="actualizarAdmin">
+            <label>ID del Administrador:</label><br>
+            <input type="text" id="id" name="id">
+        
+            <label>Nuevo Email:</label><br>
+            <input type="email" id="email_upd">
+        
+            <label>Nueva Contraseña:</label><br>
+            <input type="password" id="password_upd">
+        
+            <button type="submit">Actualizar Administrador</button>
+        </form>
+    </div>
+
+    <script src="../js/superadmin.js"></script>
+</body>
+
 </html>

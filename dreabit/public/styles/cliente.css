@@ -1,0 +1,18 @@
+body {
+    background-image: linear-gradient(#333333cc, #333333cc), url('../img/bg.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 100px;
+    padding-left: 100px;
+    font-family: 'Lato', sans-serif;
+}
+
+.container-menu{
+    display: flex;
+}
+
+.page-container{
+    display: flex;
+    flex-direction: column;
+}
