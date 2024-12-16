@@ -5,45 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Administrador</title>
+    <link rel="stylesheet" href="../styles/admin.css">
 </head>
 
 <body>
     <div>
-        <label>Agregar Admin</label>
-        <br><br>
+        <h2>Agregar Admin</h2>
+
         <form id="agregarAdmin" method="post">
             <label>Correo:</label><br>
             <input id="email" type="text" name="email" placeholder="Correo">
-            <br><br>
 
             <label>Contraseña:</label><br>
             <input id="password" type="text" name="password" placeholder="Contraseña">
-            <br><br>
 
             <input type="submit" id="agregar_btn" value="Aceptar">
-            <br><br>
+
         </form>
     </div>
 
     <div>
-        <br><br>
-        <label>Actualizar Admin</label>
-        <br><br>
+        <h2>Actualizar Admin</h2>
+
         <form id="actualizarAdmin">
             <label>ID del Administrador:</label><br>
             <input type="text" id="id" name="id">
-            <br><br>
         
             <label>Nuevo Email:</label><br>
             <input type="email" id="email_upd">
-            <br><br>
         
             <label>Nueva Contraseña:</label><br>
             <input type="password" id="password_upd">
-            <br><br>
         
             <button type="submit">Actualizar Administrador</button>
-            <br><br>
         </form>
     </div>
 

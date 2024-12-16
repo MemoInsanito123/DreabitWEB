@@ -3,7 +3,16 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: 100px;
-    margin-left: 100px;
+    padding-top: 100px;
+    padding-left: 100px;
     font-family: 'Lato', sans-serif;
+}
+
+.container-menu{
+    display: flex;
+}
+
+.page-container{
+    display: flex;
+    flex-direction: column;
 }

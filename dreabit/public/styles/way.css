@@ -4,16 +4,21 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: 100px;
-    margin-left: 100px;
+    padding-top: 100px;
+    padding-left: 100px;
     font-family: 'Lato', sans-serif;
     color: #333333;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
-.page {
+.container-menu{
     display: flex;
+}
+
+.page-container{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    justify-content: left;
 }
 
 .container {
@@ -22,11 +27,11 @@ body {
     justify-items: left;
     text-align: left;
     align-items: flex-start;
-    margin-left: 100px;
 }
 
 .btn-add-way {
     margin-left: 100px;
+    width: 20%;
     background: linear-gradient(to right, #c63d85, #fdb9ff);
     border: 5px solid #333333;
     border-radius: 50px;
